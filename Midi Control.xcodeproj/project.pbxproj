@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */; };
 		67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6225FAA0D800FD78EC /* AppDelegate.swift */; };
 		67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6425FAA0D800FD78EC /* ViewController.swift */; };
 		67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6625FAA0DA00FD78EC /* Assets.xcassets */; };
 		67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6825FAA0DA00FD78EC /* Main.storyboard */; };
+		67F27A7725FABF0A00FD78EC /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7625FABF0A00FD78EC /* Preset.swift */; };
+		67F27A7A25FABFB200FD78EC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Device.swift */; };
+		67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetView.xib */; };
+		67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewDelegate.swift; sourceTree = "<group>"; };
 		67F27A5F25FAA0D800FD78EC /* Midi Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Midi Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F27A6225FAA0D800FD78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F27A6425FAA0D800FD78EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -21,6 +27,10 @@
 		67F27A6925FAA0DA00FD78EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67F27A6B25FAA0DA00FD78EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67F27A6C25FAA0DA00FD78EC /* Midi_Control.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Midi_Control.entitlements; sourceTree = "<group>"; };
+		67F27A7625FABF0A00FD78EC /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
+		67F27A7925FABFB200FD78EC /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		67F27A8525FAC1AF00FD78EC /* PresetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetView.xib; sourceTree = "<group>"; };
+		67F27A8825FAC1BD00FD78EC /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +44,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		679B08AD25FBF9B10038A44E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				67F27A7625FABF0A00FD78EC /* Preset.swift */,
+				67F27A7925FABFB200FD78EC /* Device.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		67C0446B25FC223600BA0B24 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		67F27A5625FAA0D800FD78EC = {
 			isa = PBXGroup;
 			children = (
@@ -54,7 +81,11 @@
 			isa = PBXGroup;
 			children = (
 				67F27A6225FAA0D800FD78EC /* AppDelegate.swift */,
+				67C0446B25FC223600BA0B24 /* Protocols */,
+				679B08AD25FBF9B10038A44E /* Model */,
+				67F27A8825FAC1BD00FD78EC /* PresetView.swift */,
 				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
+				67F27A8525FAC1AF00FD78EC /* PresetView.xib */,
 				67F27A6625FAA0DA00FD78EC /* Assets.xcassets */,
 				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
 				67F27A6B25FAA0DA00FD78EC /* Info.plist */,
@@ -120,6 +151,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
 			);
@@ -133,7 +165,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */,
+				67F27A7725FABF0A00FD78EC /* Preset.swift in Sources */,
+				67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */,
 				67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */,
+				67F27A7A25FABFB200FD78EC /* Device.swift in Sources */,
+				67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

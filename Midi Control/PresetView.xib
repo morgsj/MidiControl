@@ -1,15 +1,78 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="PresetView" customModule="Midi_Control" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundBox" destination="Rn5-To-rEk" id="x5E-2l-s8f"/>
+                <outlet property="contentView" destination="c22-O7-iKe" id="7a3-bC-z75"/>
+                <outlet property="enabledCheckbox" destination="Qt0-nA-4lM" id="gxv-Hm-fqm"/>
+                <outlet property="presetConnection" destination="3ch-mf-ugl" id="VvQ-Wp-4kg"/>
+                <outlet property="presetName" destination="5Bi-g3-YKo" id="Ucr-ys-pxu"/>
+                <outlet property="statusLabel" destination="0Oq-9J-SXF" id="PBh-u5-9a9"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Rn5-To-rEk">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="SjY-bW-NWD">
+                        <rect key="frame" x="1" y="1" width="198" height="48"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Bi-g3-YKo">
+                    <rect key="frame" x="31" y="25" width="41" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="SM0-ma-ZCs">
+                        <font key="font" metaFont="systemHeavy" size="13"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ch-mf-ugl">
+                    <rect key="frame" x="31" y="9" width="37" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IPb-JR-gux">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qt0-nA-4lM">
+                    <rect key="frame" x="6" y="15" width="18" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MLi-cF-0lC">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oq-9J-SXF">
+                    <rect key="frame" x="123" y="16" width="71" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Connected" id="FRg-S5-mt0">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <connections>
+                <outlet property="enabledCheckbox" destination="Qt0-nA-4lM" id="oa5-lN-jSK"/>
+                <outlet property="presetConnection" destination="3ch-mf-ugl" id="032-SP-hjc"/>
+                <outlet property="presetName" destination="5Bi-g3-YKo" id="JLm-Ob-Ieg"/>
+                <outlet property="statusLabel" destination="0Oq-9J-SXF" id="Nu2-AP-VrG"/>
+            </connections>
+            <point key="canvasLocation" x="227" y="94"/>
         </customView>
     </objects>
 </document>
