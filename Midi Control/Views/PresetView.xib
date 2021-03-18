@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PresetView" customModule="Midi_Control" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="PresetListView" customModule="Midi_Control" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundBox" destination="Rn5-To-rEk" id="x5E-2l-s8f"/>
                 <outlet property="contentView" destination="c22-O7-iKe" id="7a3-bC-z75"/>
@@ -31,18 +31,18 @@
                     <color key="borderColor" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                 </box>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Bi-g3-YKo">
-                    <rect key="frame" x="31" y="25" width="41" height="16"/>
+                    <rect key="frame" x="31" y="25" width="88" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="SM0-ma-ZCs">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="SM0-ma-ZCs">
                         <font key="font" metaFont="systemHeavy" size="13"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ch-mf-ugl">
-                    <rect key="frame" x="31" y="9" width="37" height="16"/>
+                    <rect key="frame" x="31" y="9" width="88" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IPb-JR-gux">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="IPb-JR-gux">
                         <font key="font" usesAppearanceFont="YES"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

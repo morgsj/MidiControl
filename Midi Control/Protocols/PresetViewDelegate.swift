@@ -5,9 +5,7 @@
 //  Created by Morgan Jones on 12/03/2021.
 //
 
-import Foundation
-
 protocol PresetViewDelegate {
-    func presetSelected(_ pv: PresetView)
-    func presetDeselected(_ pv: PresetView)
+    func presetSelected(_ pv: PresetListView)
+    func presetDeselected(_ pv: PresetListView)
 }

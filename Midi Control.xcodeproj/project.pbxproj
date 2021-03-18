@@ -7,19 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6723AABA25FE5CDB00E06268 /* PresetEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6723AAB925FE5CDB00E06268 /* PresetEditorView.xib */; };
+		6723AABE25FE5FA100E06268 /* PresetEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6723AABD25FE5FA100E06268 /* PresetEditorView.swift */; };
+		67257D5125FD7A5D009425A0 /* Macro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5025FD7A5D009425A0 /* Macro.swift */; };
+		67257D5425FD7B72009425A0 /* UMidiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5325FD7B72009425A0 /* UMidiMessage.swift */; };
+		67257D5825FD8193009425A0 /* KeyboardShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5725FD8192009425A0 /* KeyboardShortcut.swift */; };
 		67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */; };
+		67EFF8402604067200D61982 /* MacroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF83F2604067200D61982 /* MacroView.xib */; };
+		67EFF8432604068E00D61982 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EFF8422604068E00D61982 /* MacroView.swift */; };
 		67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6225FAA0D800FD78EC /* AppDelegate.swift */; };
 		67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6425FAA0D800FD78EC /* ViewController.swift */; };
 		67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6625FAA0DA00FD78EC /* Assets.xcassets */; };
 		67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6825FAA0DA00FD78EC /* Main.storyboard */; };
 		67F27A7725FABF0A00FD78EC /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7625FABF0A00FD78EC /* Preset.swift */; };
-		67F27A7A25FABFB200FD78EC /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Device.swift */; };
+		67F27A7A25FABFB200FD78EC /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Connection.swift */; };
 		67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetView.xib */; };
-		67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetView.swift */; };
+		67F27A8925FAC1BD00FD78EC /* PresetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6723AAB925FE5CDB00E06268 /* PresetEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetEditorView.xib; sourceTree = "<group>"; };
+		6723AABD25FE5FA100E06268 /* PresetEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEditorView.swift; sourceTree = "<group>"; };
+		67257D5025FD7A5D009425A0 /* Macro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Macro.swift; sourceTree = "<group>"; };
+		67257D5325FD7B72009425A0 /* UMidiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMidiMessage.swift; sourceTree = "<group>"; };
+		67257D5725FD8192009425A0 /* KeyboardShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcut.swift; sourceTree = "<group>"; };
 		67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewDelegate.swift; sourceTree = "<group>"; };
+		67EFF83F2604067200D61982 /* MacroView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MacroView.xib; sourceTree = "<group>"; };
+		67EFF8422604068E00D61982 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
 		67F27A5F25FAA0D800FD78EC /* Midi Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Midi Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F27A6225FAA0D800FD78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F27A6425FAA0D800FD78EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,9 +42,9 @@
 		67F27A6B25FAA0DA00FD78EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67F27A6C25FAA0DA00FD78EC /* Midi_Control.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Midi_Control.entitlements; sourceTree = "<group>"; };
 		67F27A7625FABF0A00FD78EC /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
-		67F27A7925FABFB200FD78EC /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		67F27A7925FABFB200FD78EC /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		67F27A8525FAC1AF00FD78EC /* PresetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetView.xib; sourceTree = "<group>"; };
-		67F27A8825FAC1BD00FD78EC /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
+		67F27A8825FAC1BD00FD78EC /* PresetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,11 +58,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6723AAB625FE5B2F00E06268 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				67F27A8525FAC1AF00FD78EC /* PresetView.xib */,
+				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
+				67EFF83F2604067200D61982 /* MacroView.xib */,
+				6723AAB925FE5CDB00E06268 /* PresetEditorView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6723AAB725FE5B3700E06268 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				67F27A8825FAC1BD00FD78EC /* PresetListView.swift */,
+				67EFF8422604068E00D61982 /* MacroView.swift */,
+				6723AABD25FE5FA100E06268 /* PresetEditorView.swift */,
+				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		679B08AD25FBF9B10038A44E /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				67F27A7625FABF0A00FD78EC /* Preset.swift */,
-				67F27A7925FABFB200FD78EC /* Device.swift */,
+				67257D5325FD7B72009425A0 /* UMidiMessage.swift */,
+				67257D5725FD8192009425A0 /* KeyboardShortcut.swift */,
+				67F27A7925FABFB200FD78EC /* Connection.swift */,
+				67257D5025FD7A5D009425A0 /* Macro.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -83,11 +122,9 @@
 				67F27A6225FAA0D800FD78EC /* AppDelegate.swift */,
 				67C0446B25FC223600BA0B24 /* Protocols */,
 				679B08AD25FBF9B10038A44E /* Model */,
-				67F27A8825FAC1BD00FD78EC /* PresetView.swift */,
-				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
-				67F27A8525FAC1AF00FD78EC /* PresetView.xib */,
+				6723AAB725FE5B3700E06268 /* Controller */,
+				6723AAB625FE5B2F00E06268 /* Views */,
 				67F27A6625FAA0DA00FD78EC /* Assets.xcassets */,
-				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
 				67F27A6B25FAA0DA00FD78EC /* Info.plist */,
 				67F27A6C25FAA0DA00FD78EC /* Midi_Control.entitlements */,
 			);
@@ -154,6 +191,8 @@
 				67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
+				67EFF8402604067200D61982 /* MacroView.xib in Resources */,
+				6723AABA25FE5CDB00E06268 /* PresetEditorView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,11 +204,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */,
+				6723AABE25FE5FA100E06268 /* PresetEditorView.swift in Sources */,
+				67257D5825FD8193009425A0 /* KeyboardShortcut.swift in Sources */,
+				67EFF8432604068E00D61982 /* MacroView.swift in Sources */,
+				67257D5125FD7A5D009425A0 /* Macro.swift in Sources */,
 				67F27A7725FABF0A00FD78EC /* Preset.swift in Sources */,
 				67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */,
+				67257D5425FD7B72009425A0 /* UMidiMessage.swift in Sources */,
 				67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */,
-				67F27A7A25FABFB200FD78EC /* Device.swift in Sources */,
-				67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */,
+				67F27A7A25FABFB200FD78EC /* Connection.swift in Sources */,
+				67F27A8925FAC1BD00FD78EC /* PresetListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

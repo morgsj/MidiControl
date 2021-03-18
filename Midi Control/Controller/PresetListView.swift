@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetView : NSView {
+class PresetListView : NSView {
     
     static let WIDTH : CGFloat = 200
     static let HEIGHT : CGFloat = 50
@@ -22,7 +22,7 @@ class PresetView : NSView {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var backgroundBox: NSBox!
 
-    private var preset : Preset?
+    public var preset : Preset?
     private let delegate : PresetViewDelegate?
     private var isSelected : Bool = false
     
@@ -30,7 +30,7 @@ class PresetView : NSView {
         self.preset = preset
         self.delegate = delegate
         
-        super.init(frame: NSMakeRect(0, 0, PresetView.WIDTH, PresetView.HEIGHT))
+        super.init(frame: NSMakeRect(0, 0, PresetListView.WIDTH, PresetListView.HEIGHT))
         
         Bundle.main.loadNibNamed("PresetView", owner: self, topLevelObjects: nil)
         let contentFrame = NSMakeRect(0, 0, frame.size.width, frame.size.height)
@@ -46,13 +46,18 @@ class PresetView : NSView {
     
     override func mouseUp(with event: NSEvent) {
         if (!isSelected) {
-            backgroundBox.fillColor = .highlightColor
+            select()
             delegate!.presetSelected(self)
         } else {
             deselect()
             delegate!.presetDeselected(self)
         }
         isSelected = !isSelected
+    }
+    
+    public func select() {
+        print("selected")
+        backgroundBox.fillColor = .lightGray
     }
     
     public func deselect() {
