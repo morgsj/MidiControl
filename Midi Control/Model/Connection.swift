@@ -8,6 +8,18 @@
 import Foundation
 
 struct Connection {
+
+    var name : String
+    var enabled : Bool = true
+    var connected : Bool = true
+    
+    static func ==(lhs: Connection, rhs: Connection) -> Bool {
+        return lhs.name == rhs.name
+    }
+}
+
+extension Connection {
+    
     static var connections : [Connection] = [Connection(name: "Device1"), Connection(name: "Device2"), Connection(name: "Device3")]
     
     static func connectionNames() -> [String] {
@@ -18,11 +30,5 @@ struct Connection {
         }
         
         return connectionNames
-    }
-    
-    var name : String
-    
-    static func ==(lhs: Connection, rhs: Connection) -> Bool {
-        return lhs.name == rhs.name
     }
 }

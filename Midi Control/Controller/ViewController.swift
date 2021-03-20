@@ -14,10 +14,12 @@ class ViewController: NSViewController, PresetViewDelegate {
     
     private var selectedPresetView : PresetListView?
     private var presetEditor : PresetEditorView?
+    
+    private var deviceManager : DeviceManager?
 
     @IBOutlet weak var presetViewerScrollView: NSScrollView!
     @IBOutlet weak var presetEditorContainer: NSView!
-    
+    @IBOutlet weak var manageDeviceButton: NSButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,8 @@ class ViewController: NSViewController, PresetViewDelegate {
         
         updatePresets()
         
+        
+        manageDeviceButton.action = #selector(openDeviceWindow)
     }
     
     private func addPreset(_ preset: Preset) {
@@ -67,6 +71,12 @@ class ViewController: NSViewController, PresetViewDelegate {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    
+    @objc func openDeviceWindow() {
+        print("open")
+        deviceManager = DeviceManager()
+        
     }
 }
 
