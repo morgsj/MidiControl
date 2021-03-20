@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetListView : NSView {
+class PresetView : NSView {
     
     static let WIDTH : CGFloat = 200
     static let HEIGHT : CGFloat = 50
@@ -30,21 +30,34 @@ class PresetListView : NSView {
         self.preset = preset
         self.delegate = delegate
         
-        super.init(frame: NSMakeRect(0, 0, PresetListView.WIDTH, PresetListView.HEIGHT))
+        super.init(frame: NSMakeRect(0, 0, PresetView.WIDTH, PresetView.HEIGHT))
         
         Bundle.main.loadNibNamed("PresetView", owner: self, topLevelObjects: nil)
         let contentFrame = NSMakeRect(0, 0, frame.size.width, frame.size.height)
         self.contentView.frame = contentFrame
         self.addSubview(self.contentView)
         
-        presetName.stringValue = preset.name
+        enabledCheckbox.state = preset.isEnabled ? .on : .off
+        enabledCheckbox.target = self
+        enabledCheckbox.action = #selector(boxChecked)
+        
+        refresh()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
     
+    @objc func boxChecked() {
+        preset?.isEnabled = (enabledCheckbox.state == .on)
+        if isSelected {
+            delegate?.alteredPreset(self)
+        }
+    }
+    
+    // MARK: mouse events
     override func mouseUp(with event: NSEvent) {
+        print("mouseUP")
         if (!isSelected) {
             select()
             delegate!.presetSelected(self)
@@ -52,16 +65,23 @@ class PresetListView : NSView {
             deselect()
             delegate!.presetDeselected(self)
         }
-        isSelected = !isSelected
     }
     
     public func select() {
-        print("selected")
         backgroundBox.fillColor = .lightGray
+        isSelected = true
     }
     
     public func deselect() {
         backgroundBox.fillColor = .controlBackgroundColor
+        isSelected = false
     }
     
+    func refresh() {
+        if let preset = preset {
+            presetName.stringValue = preset.name
+            if let name = preset.connection?.name {presetConnection.stringValue = name}
+            enabledCheckbox.state = preset.isEnabled ? .on : .off
+        }
+    }
 }

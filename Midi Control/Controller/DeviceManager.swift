@@ -14,11 +14,16 @@ class DeviceManager : NSWindowController {
     @IBOutlet weak var refreshButton: NSButton!
     @IBOutlet weak var deviceTable: NSTableView!
     
-    init() {
+    let parent : ViewController
+    
+    init(_ parent: ViewController) {
+        self.parent = parent
         super.init(window: nil)
-        
         Bundle.main.loadNibNamed("DeviceManager", owner: self, topLevelObjects: nil)
-
+        
+        deviceTable.delegate = self
+        deviceTable.dataSource = self
+        
         refreshDevices()
         refreshButton.action = #selector(refreshDevices)
     }
@@ -27,11 +32,9 @@ class DeviceManager : NSWindowController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     @objc func refreshDevices() {
         // refresh devices
-        
-        
+        deviceTable.reloadData()
     }
     
 
@@ -39,6 +42,60 @@ class DeviceManager : NSWindowController {
 
 extension DeviceManager : NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return Connection.connections.count ?? 0
+        return Connection.connections.count
     }
+}
+
+extension DeviceManager : NSTableViewDelegate {
+    fileprivate enum CellIdentifiers {
+        static let DeviceCell = "Device"
+        static let VisibleCell = "Visible"
+        static let ConnectedCell = "Connected"
+    }
+    
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        var text: String?
+        var cellIdentifier: String = ""
+        
+        let item = Connection.connections[row]
+        
+        if tableColumn == deviceTable.tableColumns[0] {
+            text = item.name
+            cellIdentifier = CellIdentifiers.DeviceCell
+        } else if tableColumn == deviceTable.tableColumns[1] {
+            cellIdentifier = CellIdentifiers.VisibleCell
+        } else if tableColumn == deviceTable.tableColumns[2] {
+            cellIdentifier = CellIdentifiers.ConnectedCell
+        }
+        
+        let id = NSUserInterfaceItemIdentifier(rawValue: cellIdentifier)
+        
+        if let cell = deviceTable.makeView(withIdentifier: id, owner: nil) as? NSTableCellView {
+            if let text = text {
+                cell.textField?.stringValue = text
+            } else {
+                let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
+                checkbox.tag = row
+                if (cellIdentifier == CellIdentifiers.VisibleCell) {
+                    checkbox.state = item.enabled ? .on : .off
+                    checkbox.isEnabled = true
+                } else {
+                    checkbox.state = item.connected ? .on : .off
+                    checkbox.isEnabled = false
+                }
+                cell.addSubview(checkbox)
+            }
+            
+            return cell
+        }
+        return nil
+      
+    }
+    
+    @objc func visibilityChange(sender: NSButton) {
+        print("yass")
+        Connection.connections[sender.tag].enabled = (sender.state == .on)
+        parent.updatePresets()
+    }
+    
 }

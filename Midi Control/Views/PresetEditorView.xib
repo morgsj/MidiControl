@@ -10,7 +10,7 @@
                 <outlet property="connectionField" destination="GQr-ia-jnP" id="auD-0f-Sf0"/>
                 <outlet property="contentView" destination="c22-O7-iKe" id="QE8-we-PkU"/>
                 <outlet property="controlView" destination="c22-O7-iKe" id="PN7-o5-2cx"/>
-                <outlet property="enabledSwitch" destination="exw-dH-wMI" id="hBC-5c-GiU"/>
+                <outlet property="enabledSwitch" destination="iV7-kT-Q7O" id="vm2-4Q-1aM"/>
                 <outlet property="macrosBox" destination="9Mn-w7-9EX" id="FKr-Lo-xJF"/>
                 <outlet property="presetNameField" destination="sVc-LC-bYK" id="lIP-jC-4dg"/>
                 <outlet property="setNameButton" destination="exw-dH-wMI" id="nHl-5m-fKT"/>
@@ -80,19 +80,6 @@ DQ
 </string>
                                         </buttonCell>
                                     </button>
-                                    <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="iV7-kT-Q7O">
-                                        <rect key="frame" x="404" y="265" width="42" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    </switch>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRn-di-436">
-                                        <rect key="frame" x="399" y="295" width="53" height="16"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Enabled" id="f4x-a0-Uo4">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzV-Fq-XOs">
                                         <rect key="frame" x="20" y="225" width="52" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -118,6 +105,19 @@ DQ
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                     </button>
+                                    <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="iV7-kT-Q7O">
+                                        <rect key="frame" x="404" y="267" width="42" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </switch>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRn-di-436">
+                                        <rect key="frame" x="399" y="297" width="53" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Enabled" id="f4x-a0-Uo4">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                         </subviews>

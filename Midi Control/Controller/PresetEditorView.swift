@@ -24,6 +24,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var macrosBox: NSBox!
     private let MACROS_BOX_MIN_HEIGHT = 205
     
+    private let parent : ViewController
     
     private var p : Preset?
     var preset : Preset? {
@@ -34,10 +35,10 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
             p = newValue
             
             if let p = p {
-                presetNameField.stringValue = p.name
                 
                 presetNameField.layer?.borderColor = CGColor.init(gray: 0, alpha: 0)
                 
+                presetNameField.stringValue = p.name
                 if let index = Connection.connections.firstIndex(where: {$0 == p.connection!}) {
                     connectionField.selectItem(at: index)
                 }
@@ -47,11 +48,11 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
                 macrosBox.setFrameSize(NSSize(width: Int(MacroView.WIDTH), height: Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.HEIGHT) * p.macros.count))))
                 
             }
-            
         }
     }
     
-    init() {
+    init(_ parent : ViewController) {
+        self.parent = parent
         super.init(frame: NSMakeRect(0, 0, PresetEditorView.WIDTH, PresetEditorView.HEIGHT))
         
         Bundle.main.loadNibNamed("PresetEditorView", owner: self, topLevelObjects: nil)
@@ -64,7 +65,8 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         presetNameField.delegate = self
         connectionField.delegate = self
         
-        setNameButton.action = #selector(self.setNameClicked)
+        setNameButton.action = #selector(setNameClicked)
+        enabledSwitch.action = #selector(toggleEnabledSwitch)
         
     }
     
@@ -84,6 +86,17 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     override func mouseDown(with event: NSEvent) {
         print("mousedown")
         enabledSwitch.becomeFirstResponder()
+    }
+    
+    @objc func toggleEnabledSwitch() {
+        if let preset = preset {
+            preset.isEnabled = (enabledSwitch.state == .on)
+            for presetView in parent.presets {
+                if presetView.preset == preset {
+                    presetView.enabledCheckbox.state = preset.isEnabled ? .on : .off
+                }
+            }
+        }
     }
     
     // MARK: TextFieldDelegate methods
@@ -106,9 +119,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     }
     
     // MARK: ComboBoxDelegate methods
-    
-    
-    // MARK: RuleEditorDelegate methods
     
     
 }

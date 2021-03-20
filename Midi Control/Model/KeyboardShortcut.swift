@@ -31,3 +31,9 @@ struct KeyboardShortcut {
     }
     
 }
+
+extension KeyboardShortcut : Equatable {
+    static func == (lhs: KeyboardShortcut, rhs: KeyboardShortcut) -> Bool {
+        return lhs.keys == rhs.keys
+    }
+}

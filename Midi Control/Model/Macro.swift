@@ -22,3 +22,9 @@ struct Macro {
     }
     
 }
+
+extension Macro : Equatable {
+    static func == (lhs: Macro, rhs: Macro) -> Bool {
+        return lhs.triggers == rhs.triggers && lhs.response == rhs.response
+    }
+}

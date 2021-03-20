@@ -48,9 +48,6 @@ struct UMidiMessage {
         }
     }
     
-    static func ==(lhs: UMidiMessage, rhs: UMidiMessage) -> Bool {
-        return lhs.statusByte == rhs.statusByte && lhs.dataByte1 == rhs.dataByte1 && lhs.dataByte2 == rhs.dataByte2
-    }
     
     static let NOTE_OFF : UInt8 = 0x8
     static let NOTE_ON : UInt8 = 0x9
@@ -62,3 +59,11 @@ struct UMidiMessage {
     
 }
 // https://users.cs.cf.ac.uk/Dave.Marshall/Multimedia/node158.html
+
+extension UMidiMessage : Equatable {
+    static func == (lhs: UMidiMessage, rhs: UMidiMessage) -> Bool {
+        return lhs.statusByte == rhs.statusByte &&
+                lhs.dataByte1 == rhs.dataByte1 &&
+                lhs.dataByte2 == rhs.dataByte2
+    }
+}

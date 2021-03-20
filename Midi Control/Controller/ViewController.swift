@@ -7,12 +7,12 @@
 
 import Cocoa
 
-class ViewController: NSViewController, PresetViewDelegate {
+class ViewController: NSViewController {
+
+    public var presets : [PresetView] = []
     
+    private var selectedPresetView : PresetView?
     
-    private var presets : [PresetListView] = []
-    
-    private var selectedPresetView : PresetListView?
     private var presetEditor : PresetEditorView?
     
     private var deviceManager : DeviceManager?
@@ -24,7 +24,7 @@ class ViewController: NSViewController, PresetViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presetEditor = PresetEditorView()
+        presetEditor = PresetEditorView(self)
         presetEditorContainer.addSubview(presetEditor!)
         
         addPreset(Preset(name: "preset 1", connection: Connection.connections[0]))
@@ -32,19 +32,19 @@ class ViewController: NSViewController, PresetViewDelegate {
         
         updatePresets()
         
-        
         manageDeviceButton.action = #selector(openDeviceWindow)
     }
     
     private func addPreset(_ preset: Preset) {
-        let newView = PresetListView(preset, delegate: self)
+        let newView = PresetView(preset, delegate: self)
         presets.append(newView)
     }
     
-    private func updatePresets() {
+    public func updatePresets() {
         
         for i in 0..<presets.count {
-            presets[i].frame = NSMakeRect(0, CGFloat(i)*PresetListView.HEIGHT, PresetListView.WIDTH, PresetListView.HEIGHT)
+            presets[i].frame = NSMakeRect(0, CGFloat(i)*PresetView.HEIGHT, PresetView.WIDTH, PresetView.HEIGHT)
+            presets[i].refresh()
             presetViewerScrollView.addSubview(presets[i])
         }
         
@@ -55,8 +55,16 @@ class ViewController: NSViewController, PresetViewDelegate {
         }
 
     }
+    
+    @objc func openDeviceWindow() {
+        deviceManager = DeviceManager(self)
+    }
+    
+    
+}
 
-    func presetSelected(_ pv: PresetListView) {
+extension ViewController : PresetViewDelegate {
+    func presetSelected(_ pv: PresetView) {
         for presetView in presets {
             if pv.isEqual(to: presetView) {continue;}
             else {presetView.deselect()}
@@ -65,18 +73,9 @@ class ViewController: NSViewController, PresetViewDelegate {
         presetEditor!.preset = pv.preset
     }
     
-    func presetDeselected(_ pv: PresetListView) {}
+    func presetDeselected(_ pv: PresetView) {}
     
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-    
-    @objc func openDeviceWindow() {
-        print("open")
-        deviceManager = DeviceManager()
-        
+    func alteredPreset(_ pv: PresetView) {
+        presetEditor?.preset = pv.preset
     }
 }
-

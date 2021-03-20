@@ -11,7 +11,7 @@ class Preset {
     var state : Int?
     var connection : Connection?
     
-    var isEnabled : Bool = true
+    var isEnabled : Bool = false
     
     var macros : [Macro]
     
@@ -34,5 +34,16 @@ class Preset {
         for macro in macros {
             if macro.matches(message) {macro.execute()}
         }
+    }
+}
+
+extension Preset : Equatable {
+    static func == (lhs: Preset, rhs: Preset) -> Bool {
+            return
+                lhs.name == rhs.name &&
+                lhs.state == rhs.state &&
+                lhs.connection == rhs.connection &&
+                lhs.isEnabled == rhs.isEnabled &&
+                lhs.macros == rhs.macros
     }
 }
