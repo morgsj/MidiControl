@@ -8,7 +8,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
     public var presets : [PresetView] = []
     
     private var selectedPresetView : PresetView?

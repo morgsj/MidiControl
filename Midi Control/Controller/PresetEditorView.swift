@@ -9,7 +9,9 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
+class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroEditorDelegate {
+    
+    override var isFlipped: Bool { return true }
     
     static let WIDTH : CGFloat = 500
     static let HEIGHT : CGFloat = 350
@@ -22,17 +24,25 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var setNameButton: NSButton!
     
     @IBOutlet weak var macrosBox: NSBox!
+    @IBOutlet weak var addMacroButton: NSButton!
+    @IBOutlet weak var deleteMacroButton: NSButton!
+    
     private let MACROS_BOX_MIN_HEIGHT = 205
+    private var macroViews : [MacroView] = []
     
     private let parent : ViewController
     
-    private var p : Preset?
     var preset : Preset? {
         get {
             return p
         }
         set {
             p = newValue
+            
+            for view in macroViews {
+                view.removeFromSuperview()
+            }
+            macroViews.removeAll()
             
             if let p = p {
                 
@@ -45,11 +55,15 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
                 
                 enabledSwitch.state = p.isEnabled ? .on : .off
                 
-                macrosBox.setFrameSize(NSSize(width: Int(MacroView.WIDTH), height: Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.HEIGHT) * p.macros.count))))
+                for macro in p.macros {
+                    addMacro(MacroView(delegate: self, macro: macro))
+                }
+                
+                setBoxSize()
                 
             }
         }
-    }
+    }; private var p : Preset?
     
     init(_ parent : ViewController) {
         self.parent = parent
@@ -62,12 +76,56 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         
         refreshConnections()
         
+        
+        
         presetNameField.delegate = self
         connectionField.delegate = self
         
-        setNameButton.action = #selector(setNameClicked)
-        enabledSwitch.action = #selector(toggleEnabledSwitch)
+        deleteMacroButton.isEnabled = false
         
+        setNameButton.action     = #selector(setNameClicked)
+        enabledSwitch.action     = #selector(toggleEnabledSwitch)
+        addMacroButton.action    = #selector(addMacroButtonClicked)
+        deleteMacroButton.action = #selector(deleteMacro)
+        
+        
+    }
+    
+    @objc func addMacroButtonClicked(sender: NSButton) {
+        if let preset = preset {
+            addMacro(MacroView(delegate: self))
+            preset.macros.append(Macro())
+        }
+    }
+    
+    func addMacro(_ macroView: MacroView) {
+        macroView.frame = NSRect(x: 0, y: MacroView.MIN_HEIGHT*CGFloat(macroViews.count), width: MacroView.WIDTH, height: MacroView.MIN_HEIGHT)
+        macroViews.append(macroView)
+        setBoxSize()
+        macrosBox.addSubview(macroView)
+    }
+    
+    func setBoxSize() {
+        macrosBox.setFrameSize(NSSize(width: Int(MacroView.WIDTH), height: Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.MIN_HEIGHT) * macroViews.count))))
+        macrosBox.setFrameOrigin(NSPoint(x: 10, y: 10 + MACROS_BOX_MIN_HEIGHT - Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.MIN_HEIGHT) * macroViews.count))))
+//
+//        let frameSize = NSSize(width: PresetEditorView.WIDTH, height: PresetEditorView.HEIGHT - CGFloat(MACROS_BOX_MIN_HEIGHT) + macrosBox.frame.height)
+//        self.setFrameSize(frameSize)
+//        self.contentView.setFrameSize(frameSize)
+    }
+    
+    @objc func deleteMacro() {
+        if let selectedMacroView = selectedMacro {
+            preset!.macros.removeAll(where: {$0 === selectedMacroView.macro})
+            for view in macroViews {
+                view.removeFromSuperview()
+            }
+            macroViews.removeAll()
+            for macro in preset!.macros {
+                addMacro(MacroView(delegate: self, macro: macro))
+            }
+            
+        }
     }
     
     @objc func setNameClicked() {
@@ -118,7 +176,31 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         return true
     }
     
-    // MARK: ComboBoxDelegate methods
+    // MARK: MacroEditorDelegate methods
+    
+    var selectedMacro : MacroView?
+    
+    func macroSelected(_ mv: MacroView) {
+        selectedMacro = mv
+        deleteMacroButton.isEnabled = true
+        mv.select()
+        
+        for macroView in macroViews {
+            if macroView != mv {
+                macroView.deselect()
+            }
+        }
+    }
+    
+    func macroDeselected(_ mv: MacroView) {
+        selectedMacro = nil
+        deleteMacroButton.isEnabled = false
+        mv.deselect()
+    }
+    
+    func alteredMacro(_ mv: MacroView) {
+        // TODO
+    }
     
     
 }

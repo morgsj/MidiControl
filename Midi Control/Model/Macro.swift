@@ -5,10 +5,16 @@
 //  Created by Morgan Jones on 13/03/2021.
 //
 
-struct Macro {
+import Foundation
+
+class Macro {
     
-    var triggers : [UMidiMessage]
-    var response : [KeyboardShortcut]
+    var triggers : [UMidiMessage] = []
+    var response : [KeyboardShortcut] = []
+    
+    var id = UUID()
+    
+    init() {}
     
     func matches(_ message : UMidiMessage) -> Bool {
         for trigger in triggers {
@@ -26,5 +32,9 @@ struct Macro {
 extension Macro : Equatable {
     static func == (lhs: Macro, rhs: Macro) -> Bool {
         return lhs.triggers == rhs.triggers && lhs.response == rhs.response
+    }
+    
+    static func === (lhs: Macro, rhs: Macro) -> Bool {
+        return lhs.id == rhs.id
     }
 }

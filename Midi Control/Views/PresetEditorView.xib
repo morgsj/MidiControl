@@ -7,13 +7,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PresetEditorView" customModule="Midi_Control" customModuleProvider="target">
             <connections>
+                <outlet property="addMacroButton" destination="T8k-dv-dB3" id="v3c-pv-3rT"/>
                 <outlet property="connectionField" destination="GQr-ia-jnP" id="auD-0f-Sf0"/>
                 <outlet property="contentView" destination="c22-O7-iKe" id="QE8-we-PkU"/>
                 <outlet property="controlView" destination="c22-O7-iKe" id="PN7-o5-2cx"/>
+                <outlet property="deleteMacroButton" destination="aaB-gm-LBW" id="GAl-9Y-0Ax"/>
                 <outlet property="enabledSwitch" destination="iV7-kT-Q7O" id="vm2-4Q-1aM"/>
-                <outlet property="macrosBox" destination="9Mn-w7-9EX" id="FKr-Lo-xJF"/>
+                <outlet property="macrosBox" destination="9Mn-w7-9EX" id="wJw-X6-W4G"/>
                 <outlet property="presetNameField" destination="sVc-LC-bYK" id="lIP-jC-4dg"/>
-                <outlet property="setNameButton" destination="exw-dH-wMI" id="nHl-5m-fKT"/>
+                <outlet property="setNameButton" destination="nQ3-Bm-Ola" id="9cu-gJ-1no"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -43,8 +45,8 @@
                                         </textFieldCell>
                                     </textField>
                                     <box fixedFrame="YES" boxType="custom" cornerRadius="10" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-w7-9EX">
-                                        <rect key="frame" x="11" y="9" width="472" height="205"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="10" y="10" width="472" height="205"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <view key="contentView" id="OCO-De-qjv">
                                             <rect key="frame" x="1" y="1" width="470" height="203"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -69,17 +71,6 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="exw-dH-wMI">
-                                        <rect key="frame" x="13" y="254" width="89" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Set Name" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RLG-g3-eft">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                        </buttonCell>
-                                    </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzV-Fq-XOs">
                                         <rect key="frame" x="20" y="225" width="52" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -118,6 +109,14 @@ DQ
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQ3-Bm-Ola">
+                                        <rect key="frame" x="15" y="253" width="94" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="Set Name" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L9i-qj-NsT">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                    </button>
                                 </subviews>
                             </view>
                         </subviews>
