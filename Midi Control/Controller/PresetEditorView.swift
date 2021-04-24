@@ -1,9 +1,9 @@
-//
-//  PresetEditor.swift
-//  Midi Control
-//
-//  Created by Morgan Jones on 14/03/2021.
-//
+/**
+ PresetEditor.swift
+ Midi Control
+
+ Created by Morgan Jones on 14/03/2021.
+*/
 
 import Foundation
 import Cocoa
@@ -11,27 +11,44 @@ import Cocoa
 @IBDesignable
 class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroEditorDelegate {
     
+    /* Ensures the coordinate system has the origin at top right */
     override var isFlipped: Bool { return true }
     
+    /* The dimensions of the custom view */
     static let WIDTH : CGFloat = 500
     static let HEIGHT : CGFloat = 350
     
+    /* The view in which we build the editor */
     @IBOutlet var contentView: NSView!
     
+    
+    /* The combo box that allows the user to choose which valid connection the preset is associated with */
     @IBOutlet weak var connectionField: NSComboBox!
+    
+    /* The field allowing changing of the preset name */
     @IBOutlet weak var presetNameField: NSTextField!
+    
+    /* Toggle switch allowing the preset to be enabled or disabled */
     @IBOutlet weak var enabledSwitch: NSSwitch!
+    
+    /* The button that sets the preset name to be the value typed in presetNameField */
     @IBOutlet weak var setNameButton: NSButton!
     
+    /* The area where macros are displayed */
     @IBOutlet weak var macrosBox: NSBox!
+    private let MACROS_BOX_MIN_HEIGHT = 205
+    
+    /* Buttons to add and remove macros */
     @IBOutlet weak var addMacroButton: NSButton!
     @IBOutlet weak var deleteMacroButton: NSButton!
     
-    private let MACROS_BOX_MIN_HEIGHT = 205
+    /* List of macroViews to display in the macro box */
     private var macroViews : [MacroView] = []
     
+    /* The view controller that this is a subview of */
     private let parent : ViewController
     
+    /* The preset we are editing */
     var preset : Preset? {
         get {
             return p
@@ -39,28 +56,34 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         set {
             p = newValue
             
+            /* Remove all macros currently in view */
             for view in macroViews {
                 view.removeFromSuperview()
             }
             macroViews.removeAll()
             
-            if let p = p {
+            if let preset = p { /* Check that the preset passed in is valid */
                 
                 presetNameField.layer?.borderColor = CGColor.init(gray: 0, alpha: 0)
                 
-                presetNameField.stringValue = p.name
-                if let index = Connection.connections.firstIndex(where: {$0 == p.connection!}) {
-                    connectionField.selectItem(at: index)
+                /* Set name and connection values */
+                presetNameField.stringValue = preset.name
+                if let conn = preset.connection {
+                    if let index = Connection.connections.firstIndex(where: {$0 == conn}) {
+                        connectionField.selectItem(at: index)
+                    }
                 }
                 
-                enabledSwitch.state = p.isEnabled ? .on : .off
+                /* Set enabled value */
+                enabledSwitch.state = preset.isEnabled ? .on : .off
                 
-                for macro in p.macros {
+                /* Display all the preset's macros */
+                for macro in preset.macros {
                     addMacro(MacroView(delegate: self, macro: macro))
                 }
                 
+                /* Adjust macro box size */
                 setBoxSize()
-                
             }
         }
     }; private var p : Preset?
@@ -76,18 +99,16 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         
         refreshConnections()
         
-        
-        
         presetNameField.delegate = self
         connectionField.delegate = self
         
         deleteMacroButton.isEnabled = false
         
+        /* TODO: Refactor into @IBActions to reduce volume of code */
         setNameButton.action     = #selector(setNameClicked)
         enabledSwitch.action     = #selector(toggleEnabledSwitch)
         addMacroButton.action    = #selector(addMacroButtonClicked)
         deleteMacroButton.action = #selector(deleteMacro)
-        
         
     }
     

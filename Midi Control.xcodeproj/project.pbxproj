@@ -15,6 +15,7 @@
 		67257D5425FD7B72009425A0 /* UMidiMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5325FD7B72009425A0 /* UMidiMessage.swift */; };
 		67257D5825FD8193009425A0 /* KeyboardShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5725FD8192009425A0 /* KeyboardShortcut.swift */; };
 		6725888D260B55210028BAAD /* MacroEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725888C260B55210028BAAD /* MacroEditorDelegate.swift */; };
+		67311C4F26345410001DBF67 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 67311C4E26345410001DBF67 /* .gitignore */; };
 		67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */; };
 		67EFF8402604067200D61982 /* MacroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF83F2604067200D61982 /* MacroView.xib */; };
 		67EFF8432604068E00D61982 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EFF8422604068E00D61982 /* MacroView.swift */; };
@@ -37,6 +38,7 @@
 		67257D5325FD7B72009425A0 /* UMidiMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UMidiMessage.swift; sourceTree = "<group>"; };
 		67257D5725FD8192009425A0 /* KeyboardShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcut.swift; sourceTree = "<group>"; };
 		6725888C260B55210028BAAD /* MacroEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroEditorDelegate.swift; sourceTree = "<group>"; };
+		67311C4E26345410001DBF67 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewDelegate.swift; sourceTree = "<group>"; };
 		67EFF83F2604067200D61982 /* MacroView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MacroView.xib; sourceTree = "<group>"; };
 		67EFF8422604068E00D61982 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		67F27A5625FAA0D800FD78EC = {
 			isa = PBXGroup;
 			children = (
+				67311C4E26345410001DBF67 /* .gitignore */,
 				67F27A6125FAA0D800FD78EC /* Midi Control */,
 				67F27A6025FAA0D800FD78EC /* Products */,
 			);
@@ -198,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */,
+				67311C4F26345410001DBF67 /* .gitignore in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
 				67072539260608C900A9E2C9 /* DeviceManager.xib in Resources */,

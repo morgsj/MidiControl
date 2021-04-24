@@ -34,7 +34,7 @@
                     <rect key="frame" x="31" y="25" width="88" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="SM0-ma-ZCs">
-                        <font key="font" metaFont="systemHeavy" size="13"/>
+                        <font key="font" size="13" name="ShreeDev0714-Bold"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -43,7 +43,7 @@
                     <rect key="frame" x="31" y="9" width="88" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="IPb-JR-gux">
-                        <font key="font" usesAppearanceFont="YES"/>
+                        <font key="font" size="13" name="ShreeDev0714"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -57,10 +57,10 @@
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oq-9J-SXF">
-                    <rect key="frame" x="123" y="16" width="71" height="16"/>
+                    <rect key="frame" x="123" y="16" width="68" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Connected" id="FRg-S5-mt0">
-                        <font key="font" usesAppearanceFont="YES"/>
+                        <font key="font" size="13" name="ShreeDev0714"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>

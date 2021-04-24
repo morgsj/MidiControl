@@ -39,7 +39,7 @@
                                         <rect key="frame" x="20" y="286" width="356" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Preset Name" placeholderString="Preset Name" drawsBackground="YES" id="3qb-gF-QYW">
-                                            <font key="font" metaFont="systemHeavy" size="29"/>
+                                            <font key="font" size="29" name="ShreeDev0714-BoldItalic"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -57,25 +57,25 @@
                                         <rect key="frame" x="209" y="256" width="170" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="S1v-Zz-JSe">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="13" name="ShreeDev0714"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </comboBoxCell>
                                     </comboBox>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UvK-SA-5d3">
-                                        <rect key="frame" x="131" y="263" width="78" height="16"/>
+                                        <rect key="frame" x="131" y="263" width="74" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Connection:" id="WUG-qO-FUt">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="13" name="ShreeDev0714"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FzV-Fq-XOs">
-                                        <rect key="frame" x="20" y="225" width="52" height="16"/>
+                                        <rect key="frame" x="20" y="225" width="48" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Macros" id="yMA-tr-Ecs">
-                                            <font key="font" metaFont="systemBold"/>
+                                            <font key="font" size="13" name="ShreeDev0714-Bold"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -101,20 +101,20 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </switch>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aRn-di-436">
-                                        <rect key="frame" x="399" y="297" width="53" height="16"/>
+                                        <rect key="frame" x="399" y="297" width="51" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Enabled" id="f4x-a0-Uo4">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="13" name="ShreeDev0714"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQ3-Bm-Ola">
-                                        <rect key="frame" x="15" y="253" width="94" height="32"/>
+                                        <rect key="frame" x="16" y="253" width="92" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="push" title="Set Name" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L9i-qj-NsT">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" size="13" name="ShreeDev0714"/>
                                         </buttonCell>
                                     </button>
                                 </subviews>

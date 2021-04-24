@@ -21,6 +21,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var presetEditorContainer: NSView!
     @IBOutlet weak var manageDeviceButton: NSButton!
     
+    @IBOutlet weak var addPresetButton: NSButton!
+    @IBOutlet weak var removePresetButton: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,9 +52,7 @@ class ViewController: NSViewController {
         }
         
         if (presets.count > 0) {
-            presets[0].select()
-            selectedPresetView = presets[0]
-            presetEditor!.preset = presets[0].preset
+            presetSelected(presets[0])
         }
 
     }
@@ -60,7 +61,14 @@ class ViewController: NSViewController {
         deviceManager = DeviceManager(self)
     }
     
+    @IBAction func addPresetButtonClicked(_ sender: Any) {
+        presets.append(PresetView(Preset(name: "New Preset"), delegate: self))
+        updatePresets()
+    }
     
+    @IBAction func removePresetButtonClicked(_ sender: Any) {
+        
+    }
 }
 
 extension ViewController : PresetViewDelegate {
@@ -69,11 +77,17 @@ extension ViewController : PresetViewDelegate {
             if pv.isEqual(to: presetView) {continue;}
             else {presetView.deselect()}
         }
+        pv.select()
         selectedPresetView = pv
         presetEditor!.preset = pv.preset
+        
+        removePresetButton.isEnabled = true
     }
     
-    func presetDeselected(_ pv: PresetView) {}
+    func presetDeselected(_ pv: PresetView) {
+        pv.deselect()
+        removePresetButton.isEnabled = false
+    }
     
     func alteredPreset(_ pv: PresetView) {
         presetEditor?.preset = pv.preset
