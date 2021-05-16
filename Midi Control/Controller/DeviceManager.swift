@@ -25,6 +25,7 @@ class DeviceManager : NSWindowController {
         deviceTable.dataSource = self
         
         refreshDevices()
+        print(Connection.connections.count)
         refreshButton.action = #selector(refreshDevices)
     }
     
@@ -33,10 +34,9 @@ class DeviceManager : NSWindowController {
     }
     
     @objc func refreshDevices() {
-        // refresh devices
+        Connection.populateConnections()
         deviceTable.reloadData()
     }
-    
 
 }
 
@@ -77,7 +77,7 @@ extension DeviceManager : NSTableViewDelegate {
                 let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
                 checkbox.tag = row
                 if (cellIdentifier == CellIdentifiers.VisibleCell) {
-                    checkbox.state = item.enabled ? .on : .off
+                    checkbox.state = item.visible ? .on : .off
                     checkbox.isEnabled = true
                 } else {
                     checkbox.state = item.connected ? .on : .off
@@ -93,8 +93,8 @@ extension DeviceManager : NSTableViewDelegate {
     }
     
     @objc func visibilityChange(sender: NSButton) {
-        print("yass")
-        Connection.connections[sender.tag].enabled = (sender.state == .on)
+        Connection.connections[sender.tag].visible = (sender.state == .on)
+        
         parent.updatePresets()
     }
     

@@ -7,23 +7,51 @@
 
 import Foundation
 
-class Connection {
+import CoreMIDI
+import AudioKit
 
-    var name : String
-    var enabled : Bool = true
-    var connected : Bool = false
+class Connection {
     
-    init(name: String) {
+    var visible : Bool = true
+    var connected : Bool = true
+    
+    var name : String
+    var info : EndpointInfo
+    var id : MIDIUniqueID
+    var port : MIDIPortRef
+    
+    init(name: String, info: EndpointInfo, id: MIDIUniqueID, port: MIDIPortRef) {
         self.name = name
+        self.info = info
+        self.id = id
+        self.port = port
     }
     
 }
 
-// MARK: static connection functionality
+// MARK: Static Connection functionality
 
 extension Connection {
     
-    static var connections : [Connection] = [Connection(name: "Device1"), Connection(name: "Device2"), Connection(name: "Device3")]
+    static var connections : [Connection] = []
+    static var connectionDictionary : [MIDIUniqueID : Connection] = [:]
+    
+    static func populateConnections() {
+        let inputNames : [String] = AppDelegate.midi.inputNames
+        let inputInfos : [EndpointInfo] = AppDelegate.midi.inputInfos
+        let inputUIDs : [MIDIUniqueID] = AppDelegate.midi.inputUIDs
+        let inputPorts : [MIDIUniqueID : MIDIPortRef] = AppDelegate.midi.inputPorts
+        
+        Connection.connections = []
+        Connection.connectionDictionary = [:]
+        
+        for i in 0..<inputNames.count {
+            let newConnection = Connection(name: inputNames[i], info: inputInfos[i], id: inputUIDs[i], port: inputPorts[inputUIDs[i]]!)
+            Connection.connections.append(newConnection)
+            
+            Connection.connectionDictionary[inputUIDs[i]] = Connection.connections.last
+        }
+    }
     
     static func connectionNames() -> [String] {
         var connectionNames : [String] = []
@@ -37,8 +65,8 @@ extension Connection {
     
     static func sortConnections() {
         connections.sort { (u, v) -> Bool in
-            if      (u.enabled && !v.enabled) {return true}
-            else if (v.enabled && !u.enabled) {return false}
+            if      (u.visible && !v.visible) {return true}
+            else if (v.visible && !u.visible) {return false}
             else if (u.connected && !v.connected) {return true}
             else if (v.connected && !u.connected) {return false}
             else {return u.name < v.name}
@@ -48,11 +76,13 @@ extension Connection {
     static func getVisibleConnections() -> [Connection] {
         sortConnections()
         var i = 0
-        while (i < connections.count && connections[i].enabled) {i += 1}
+        while (i < connections.count && connections[i].visible) {i += 1}
         return Array(connections[0..<i])
-        
     }
+    
 }
+
+
 
 extension Connection : Equatable {
     // TODO: sort this out

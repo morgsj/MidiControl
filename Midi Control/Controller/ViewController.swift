@@ -6,12 +6,14 @@
 //
 
 import Cocoa
+import AudioKit
+import CoreMIDI
 
 class ViewController: NSViewController {
     
-    public var presets : [PresetView] = []
+    public var presets : [PresetCompactView] = []
     
-    private var selectedPresetView : PresetView?
+    private var selectedPresetView : PresetCompactView?
     
     private var presetEditor : PresetEditorView?
     
@@ -30,8 +32,8 @@ class ViewController: NSViewController {
         presetEditor = PresetEditorView(self)
         presetEditorContainer.addSubview(presetEditor!)
         
-        addPreset(Preset(name: "preset 1", connection: Connection.connections[0]))
-        addPreset(Preset(name: "preset 2", connection: Connection.connections[1]))
+//        addPreset(Preset(name: "preset 1", connection: Connection.connections[0]))
+//        addPreset(Preset(name: "preset 2", connection: Connection.connections[1]))
         
         updatePresets()
         
@@ -39,14 +41,14 @@ class ViewController: NSViewController {
     }
     
     private func addPreset(_ preset: Preset) {
-        let newView = PresetView(preset, delegate: self)
+        let newView = PresetCompactView(preset, delegate: self)
         presets.append(newView)
     }
     
     public func updatePresets() {
         
         for i in 0..<presets.count {
-            presets[i].frame = NSMakeRect(0, CGFloat(i)*PresetView.HEIGHT, PresetView.WIDTH, PresetView.HEIGHT)
+            presets[i].frame = NSMakeRect(0, CGFloat(i)*PresetCompactView.HEIGHT, PresetCompactView.WIDTH, PresetCompactView.HEIGHT)
             presets[i].refresh()
             presetViewerScrollView.addSubview(presets[i])
         }
@@ -62,7 +64,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func addPresetButtonClicked(_ sender: Any) {
-        presets.append(PresetView(Preset(name: "New Preset"), delegate: self))
+        presets.append(PresetCompactView(Preset(name: "New Preset"), delegate: self))
         updatePresets()
     }
     
@@ -72,7 +74,7 @@ class ViewController: NSViewController {
 }
 
 extension ViewController : PresetViewDelegate {
-    func presetSelected(_ pv: PresetView) {
+    func presetSelected(_ pv: PresetCompactView) {
         for presetView in presets {
             if pv.isEqual(to: presetView) {continue;}
             else {presetView.deselect()}
@@ -84,12 +86,12 @@ extension ViewController : PresetViewDelegate {
         removePresetButton.isEnabled = true
     }
     
-    func presetDeselected(_ pv: PresetView) {
+    func presetDeselected(_ pv: PresetCompactView) {
         pv.deselect()
         removePresetButton.isEnabled = false
     }
     
-    func alteredPreset(_ pv: PresetView) {
+    func alteredPreset(_ pv: PresetCompactView) {
         presetEditor?.preset = pv.preset
     }
 }

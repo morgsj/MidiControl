@@ -6,7 +6,7 @@
 //
 
 protocol PresetViewDelegate {    
-    func presetSelected(_ pv: PresetView)
-    func presetDeselected(_ pv: PresetView)
-    func alteredPreset(_ pv: PresetView)
+    func presetSelected(_ pv: PresetCompactView)
+    func presetDeselected(_ pv: PresetCompactView)
+    func alteredPreset(_ pv: PresetCompactView)
 }

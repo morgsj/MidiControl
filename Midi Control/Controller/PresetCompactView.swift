@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetView : NSView {
+class PresetCompactView : NSView {
     
     static let WIDTH : CGFloat = 200
     static let HEIGHT : CGFloat = 50
@@ -30,9 +30,9 @@ class PresetView : NSView {
         self.preset = preset
         self.delegate = delegate
         
-        super.init(frame: NSMakeRect(0, 0, PresetView.WIDTH, PresetView.HEIGHT))
+        super.init(frame: NSMakeRect(0, 0, PresetCompactView.WIDTH, PresetCompactView.HEIGHT))
         
-        Bundle.main.loadNibNamed("PresetView", owner: self, topLevelObjects: nil)
+        Bundle.main.loadNibNamed("PresetCompactView", owner: self, topLevelObjects: nil)
         let contentFrame = NSMakeRect(0, 0, frame.size.width, frame.size.height)
         self.contentView.frame = contentFrame
         self.addSubview(self.contentView)

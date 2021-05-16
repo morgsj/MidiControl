@@ -21,7 +21,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     /* The view in which we build the editor */
     @IBOutlet var contentView: NSView!
     
-    
     /* The combo box that allows the user to choose which valid connection the preset is associated with */
     @IBOutlet weak var connectionField: NSComboBox!
     
@@ -66,8 +65,14 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
                 
                 presetNameField.layer?.borderColor = CGColor.init(gray: 0, alpha: 0)
                 
-                /* Set name and connection values */
+                /* Set name */
                 presetNameField.stringValue = preset.name
+                
+                /* Populate combo box */
+                connectionField.removeAllItems()
+                connectionField.addItems(withObjectValues: Connection.getVisibleConnections())
+                
+                /* Set combo box value */
                 if let conn = preset.connection {
                     if let index = Connection.connections.firstIndex(where: {$0 == conn}) {
                         connectionField.selectItem(at: index)
@@ -153,9 +158,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         preset?.name = presetNameField.stringValue
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError()
-    }
+    required init?(coder aDecoder: NSCoder) {fatalError()}
     
     func refreshConnections() {
         connectionField.removeAllItems()
@@ -163,7 +166,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     }
     
     override func mouseDown(with event: NSEvent) {
-        print("mousedown")
         enabledSwitch.becomeFirstResponder()
     }
     
@@ -180,7 +182,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     
     // MARK: TextFieldDelegate methods
     func controlTextDidEndEditing(_ obj: Notification) {
-        print("END")
         if let name = preset?.name {
             presetNameField.stringValue = name
         }

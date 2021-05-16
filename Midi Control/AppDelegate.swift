@@ -7,19 +7,35 @@
 
 import Cocoa
 
+import AudioKit
+import CoreMIDI
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+   
+    static let midi = MIDI()
     
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        AppDelegate.midi.openInput()
+        AppDelegate.midi.addListener(MIDIReceiver())
     }
-
+    
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        AppDelegate.midi.closeInput()
     }
 
-
+    
+    
+    @IBAction func githubButtonPressed(_ sender: Any) {
+        print("okay gurl")
+        let url = URL(string: "https://www.github.com/morgsj/MidiControl")!
+        NSWorkspace.shared.open(url)
+    }
+    
+    @IBAction func coffeeButtonPressed(_ sender: Any) {
+        let url = URL(string: "https://www.github.com/morgsj/MidiControl")!
+        NSWorkspace.shared.open(url)
+    }
+    
 }
 

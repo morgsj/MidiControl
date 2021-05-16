@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,8 +25,10 @@
 		67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6825FAA0DA00FD78EC /* Main.storyboard */; };
 		67F27A7725FABF0A00FD78EC /* Preset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7625FABF0A00FD78EC /* Preset.swift */; };
 		67F27A7A25FABFB200FD78EC /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Connection.swift */; };
-		67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetView.xib */; };
-		67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetView.swift */; };
+		67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */; };
+		67F27A8925FAC1BD00FD78EC /* PresetCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */; };
+		904C1B9D2651133200C28B01 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 904C1B9C2651133200C28B01 /* AudioKit */; };
+		904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,8 +53,9 @@
 		67F27A6C25FAA0DA00FD78EC /* Midi_Control.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Midi_Control.entitlements; sourceTree = "<group>"; };
 		67F27A7625FABF0A00FD78EC /* Preset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preset.swift; sourceTree = "<group>"; };
 		67F27A7925FABFB200FD78EC /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
-		67F27A8525FAC1AF00FD78EC /* PresetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetView.xib; sourceTree = "<group>"; };
-		67F27A8825FAC1BD00FD78EC /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
+		67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCompactView.xib; sourceTree = "<group>"; };
+		67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCompactView.swift; sourceTree = "<group>"; };
+		904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIReceiver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				904C1B9D2651133200C28B01 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +73,7 @@
 		6723AAB625FE5B2F00E06268 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				67F27A8525FAC1AF00FD78EC /* PresetView.xib */,
+				67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */,
 				67072538260608C900A9E2C9 /* DeviceManager.xib */,
 				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
 				67EFF83F2604067200D61982 /* MacroView.xib */,
@@ -81,7 +85,7 @@
 		6723AAB725FE5B3700E06268 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				67F27A8825FAC1BD00FD78EC /* PresetView.swift */,
+				67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */,
 				67EFF8422604068E00D61982 /* MacroView.swift */,
 				6707253C26060BCC00A9E2C9 /* DeviceManager.swift */,
 				6723AABD25FE5FA100E06268 /* PresetEditorView.swift */,
@@ -95,6 +99,7 @@
 			children = (
 				67F27A7625FABF0A00FD78EC /* Preset.swift */,
 				67257D5325FD7B72009425A0 /* UMidiMessage.swift */,
+				904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */,
 				67257D5725FD8192009425A0 /* KeyboardShortcut.swift */,
 				67F27A7925FABFB200FD78EC /* Connection.swift */,
 				67257D5025FD7A5D009425A0 /* Macro.swift */,
@@ -159,6 +164,9 @@
 			dependencies = (
 			);
 			name = "Midi Control";
+			packageProductDependencies = (
+				904C1B9C2651133200C28B01 /* AudioKit */,
+			);
 			productName = "Midi Control";
 			productReference = 67F27A5F25FAA0D800FD78EC /* Midi Control.app */;
 			productType = "com.apple.product-type.application";
@@ -186,6 +194,9 @@
 				Base,
 			);
 			mainGroup = 67F27A5625FAA0D800FD78EC;
+			packageReferences = (
+				904C1B9B2651133100C28B01 /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
 			productRefGroup = 67F27A6025FAA0D800FD78EC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -200,7 +211,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67F27A8625FAC1AF00FD78EC /* PresetView.xib in Resources */,
+				67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */,
 				67311C4F26345410001DBF67 /* .gitignore in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
@@ -220,6 +231,7 @@
 				67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */,
 				6707253D26060BCC00A9E2C9 /* DeviceManager.swift in Sources */,
 				6723AABE25FE5FA100E06268 /* PresetEditorView.swift in Sources */,
+				904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */,
 				67257D5825FD8193009425A0 /* KeyboardShortcut.swift in Sources */,
 				67EFF8432604068E00D61982 /* MacroView.swift in Sources */,
 				67257D5125FD7A5D009425A0 /* Macro.swift in Sources */,
@@ -229,7 +241,7 @@
 				67257D5425FD7B72009425A0 /* UMidiMessage.swift in Sources */,
 				67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */,
 				67F27A7A25FABFB200FD78EC /* Connection.swift in Sources */,
-				67F27A8925FAC1BD00FD78EC /* PresetView.swift in Sources */,
+				67F27A8925FAC1BD00FD78EC /* PresetCompactView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +434,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		904C1B9B2651133100C28B01 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/AudioKit/AudioKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		904C1B9C2651133200C28B01 /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 904C1B9B2651133100C28B01 /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 67F27A5725FAA0D800FD78EC /* Project object */;
 }
