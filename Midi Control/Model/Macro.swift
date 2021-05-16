@@ -9,7 +9,7 @@ import Foundation
 
 class Macro {
     
-    var triggers : [UMidiMessage] = []
+    var trigger : [UMidiMessage] = []
     var response : [KeyboardShortcut] = []
     
     var id = UUID()
@@ -17,9 +17,9 @@ class Macro {
     init() {}
     
     func matches(_ message : UMidiMessage) -> Bool {
-        for trigger in triggers {
-            if (message == trigger) {return true}
-        }
+//        for trigger in triggers {
+//            if (message == trigger) {return true}
+//        }
         return false
     }
     
@@ -31,7 +31,7 @@ class Macro {
 
 extension Macro : Equatable {
     static func == (lhs: Macro, rhs: Macro) -> Bool {
-        return lhs.triggers == rhs.triggers && lhs.response == rhs.response
+        return true //lhs.triggers == rhs.triggers && lhs.response == rhs.response
     }
     
     static func === (lhs: Macro, rhs: Macro) -> Bool {
