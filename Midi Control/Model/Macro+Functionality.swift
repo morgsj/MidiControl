@@ -7,14 +7,7 @@
 
 import Foundation
 
-class Macro {
-    
-    var trigger : [UMidiMessage] = []
-    var response : [KeyboardShortcut] = []
-    
-    var id : UUID = UUID()
-    
-    init() {}
+extension Macro {
     
     func matches(_ message : UMidiMessage) -> Bool {
 //        for trigger in triggers {
@@ -24,12 +17,12 @@ class Macro {
     }
     
     func execute() {
-        for shortcut in response {shortcut.execute()}
+        for shortcut in response! {(shortcut as! KeyboardShortcut).execute()}
     }
     
 }
 
-extension Macro : Equatable {
+extension Macro {
     static func == (lhs: Macro, rhs: Macro) -> Bool {
         return true //lhs.triggers == rhs.triggers && lhs.response == rhs.response
     }

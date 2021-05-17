@@ -66,7 +66,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
                 presetNameField.layer?.borderColor = CGColor.init(gray: 0, alpha: 0)
                 
                 /* Set name */
-                presetNameField.stringValue = preset.name
+                presetNameField.stringValue = preset.name!
                 
                 /* Populate combo box */
                 connectionField.removeAllItems()
@@ -83,8 +83,8 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
                 enabledSwitch.state = preset.isEnabled ? .on : .off
                 
                 /* Display all the preset's macros */
-                for macro in preset.macros {
-                    addMacro(MacroView(delegate: self, macro: macro))
+                for macro in preset.macros! {
+                    addMacro(MacroView(delegate: self, macro: macro as! Macro))
                 }
                 
                 /* Adjust macro box size */
@@ -120,7 +120,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     @objc func addMacroButtonClicked(sender: NSButton) {
         if let preset = preset {
             addMacro(MacroView(delegate: self))
-            preset.macros.append(Macro())
+            (preset.macros as! NSMutableOrderedSet).add(Macro())
         }
     }
     
@@ -142,13 +142,13 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     
     @objc func deleteMacro() {
         if let selectedMacroView = selectedMacro {
-            preset!.macros.removeAll(where: {$0 === selectedMacroView.macro})
+            (preset!.macros as! NSMutableOrderedSet).remove({$0 === selectedMacroView.macro})
             for view in macroViews {
                 view.removeFromSuperview()
             }
             macroViews.removeAll()
-            for macro in preset!.macros {
-                addMacro(MacroView(delegate: self, macro: macro))
+            for macro in preset!.macros! {
+                addMacro(MacroView(delegate: self, macro: macro as! Macro))
             }
             
         }

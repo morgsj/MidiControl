@@ -80,7 +80,7 @@ extension DeviceManager : NSTableViewDelegate {
                     checkbox.state = item.visible ? .on : .off
                     checkbox.isEnabled = true
                 } else {
-                    checkbox.state = item.connected ? .on : .off
+                    checkbox.state = item.isEnabled ? .on : .off
                     checkbox.isEnabled = false
                 }
                 cell.addSubview(checkbox)

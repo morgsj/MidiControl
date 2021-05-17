@@ -10,21 +10,13 @@ import Foundation
 import CoreMIDI
 import AudioKit
 
-class Connection : Codable {
+extension Connection {
     
-    var visible : Bool = true
-    var connected : Bool = true
-    
-    var name : String
-    var info : EndpointInfo
-    var id : MIDIUniqueID
-    var port : MIDIPortRef
-    
-    init(name: String, info: EndpointInfo, id: MIDIUniqueID, port: MIDIPortRef) {
+    convenience init(name: String, id: MIDIUniqueID, port: MIDIPortRef) {
+        self.init()
         self.name = name
-        self.info = info
         self.id = id
-        self.port = port
+        self.port = Int32(port)
     }
     
 }
@@ -38,7 +30,6 @@ extension Connection {
     
     static func populateConnections() {
         let inputNames : [String] = AppDelegate.midi.inputNames
-        let inputInfos : [EndpointInfo] = AppDelegate.midi.inputInfos
         let inputUIDs : [MIDIUniqueID] = AppDelegate.midi.inputUIDs
         let inputPorts : [MIDIUniqueID : MIDIPortRef] = AppDelegate.midi.inputPorts
         
@@ -46,7 +37,7 @@ extension Connection {
         Connection.connectionDictionary = [:]
         
         for i in 0..<inputNames.count {
-            let newConnection = Connection(name: inputNames[i], info: inputInfos[i], id: inputUIDs[i], port: inputPorts[inputUIDs[i]]!)
+            let newConnection = Connection(name: inputNames[i], id: inputUIDs[i], port: inputPorts[inputUIDs[i]]!)
             Connection.connections.append(newConnection)
             
             Connection.connectionDictionary[inputUIDs[i]] = Connection.connections.last
@@ -57,7 +48,7 @@ extension Connection {
         var connectionNames : [String] = []
         
         for connection in connections {
-            connectionNames.append(connection.name)
+            connectionNames.append(connection.name!)
         }
         
         return connectionNames
@@ -67,9 +58,9 @@ extension Connection {
         connections.sort { (u, v) -> Bool in
             if      (u.visible && !v.visible) {return true}
             else if (v.visible && !u.visible) {return false}
-            else if (u.connected && !v.connected) {return true}
-            else if (v.connected && !u.connected) {return false}
-            else {return u.name < v.name}
+            else if (u.isEnabled && !v.isEnabled) {return true}
+            else if (v.isEnabled && !u.isEnabled) {return false}
+            else {return u.name! < v.name!}
         }
     }
     
@@ -82,11 +73,3 @@ extension Connection {
     
 }
 
-
-
-extension Connection : Equatable {
-    // TODO: sort this out
-    static func ==(lhs: Connection, rhs: Connection) -> Bool {
-        return lhs.name == rhs.name
-    }
-}

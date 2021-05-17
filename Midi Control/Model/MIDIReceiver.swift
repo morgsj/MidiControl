@@ -14,21 +14,21 @@ class MIDIReceiver : MIDIListener {
     
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         if let portID = portID {
-            let message = NoteOnMessage(noteNumber: noteNumber, velocity: velocity, channel: channel, port: portID)
+            let message = UMidiMessage(channel: channel, port: portID, noteID: noteNumber, value: velocity)
             print(#function)
         }
     }
     
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         if let portID = portID {
-            let message = NoteOffMessage(noteNumber: noteNumber, velocity: velocity, channel: channel, port: portID)
+            let message = UMidiMessage(channel: channel, port: portID, noteID: noteNumber, value: velocity)
             print(#function)
         }
     }
     
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         if let portID = portID {
-            let message = ControlMessage(controller: controller, value: value, channel: channel, port: portID)
+            let message = UMidiMessage(channel: channel, port: portID, noteID: controller, value: value)
             print(#function)
         }
     }

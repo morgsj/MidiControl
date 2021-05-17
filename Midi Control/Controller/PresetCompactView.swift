@@ -79,7 +79,7 @@ class PresetCompactView : NSView {
     
     func refresh() {
         if let preset = preset {
-            presetName.stringValue = preset.name
+            presetName.stringValue = preset.name!
             if let name = preset.connection?.name {presetConnection.stringValue = name}
             enabledCheckbox.state = preset.isEnabled ? .on : .off
         }
