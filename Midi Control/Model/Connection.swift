@@ -10,7 +10,7 @@ import Foundation
 import CoreMIDI
 import AudioKit
 
-class Connection {
+class Connection : Codable {
     
     var visible : Bool = true
     var connected : Bool = true

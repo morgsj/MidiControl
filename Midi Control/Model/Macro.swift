@@ -12,7 +12,7 @@ class Macro {
     var trigger : [UMidiMessage] = []
     var response : [KeyboardShortcut] = []
     
-    var id = UUID()
+    var id : UUID = UUID()
     
     init() {}
     

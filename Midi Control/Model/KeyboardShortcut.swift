@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct KeyboardShortcut {
+struct KeyboardShortcut : Codable {
     
     var keys : [CGKeyCode]
     
