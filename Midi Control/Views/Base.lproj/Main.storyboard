@@ -173,6 +173,17 @@
                                     <action selector="addPresetButtonClicked:" target="XfG-lQ-9wD" id="aCz-Sl-npW"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9c-tj-VjW">
+                                <rect key="frame" x="80" y="361.5" width="30.5" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarGoUpTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="ZTy-wI-qXh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="movePresetUpButtonPressed:" target="XfG-lQ-9wD" id="PqH-Ur-ktJ"/>
+                                </connections>
+                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luS-oC-GlB">
                                 <rect key="frame" x="42" y="359" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -185,7 +196,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QT6-Ty-Dxt">
-                                <rect key="frame" x="285" y="353" width="130" height="33"/>
+                                <rect key="frame" x="284" y="353" width="131" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Midi Control" id="6gy-q5-jEP">
                                     <font key="font" size="20" name="ShreeDev0714-Bold"/>
@@ -193,11 +204,24 @@
                                     <color key="backgroundColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UbC-y5-1b4">
+                                <rect key="frame" x="109" y="361" width="30.5" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSTouchBarGoDownTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" imageScaling="proportionallyDown" inset="2" id="cTn-nD-Kk2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="movePresetDownButtonPressed:" target="XfG-lQ-9wD" id="jjf-Re-9gc"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="addPresetButton" destination="zwF-S9-NDI" id="G1O-Rb-L2p"/>
                         <outlet property="manageDeviceButton" destination="8QT-HH-pGn" id="ifg-hY-0cV"/>
+                        <outlet property="movePresetDownButton" destination="UbC-y5-1b4" id="VYz-IA-Joc"/>
+                        <outlet property="movePresetUpButton" destination="h9c-tj-VjW" id="6j8-25-3gL"/>
                         <outlet property="presetEditor" destination="kVM-0D-ezG" id="WJa-9b-lwt"/>
                         <outlet property="presetEditorContainer" destination="kVM-0D-ezG" id="7Gr-R0-XMQ"/>
                         <outlet property="presetViewerScrollView" destination="h1Z-by-Ppx" id="p84-Hy-yz4"/>
@@ -212,5 +236,7 @@
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSMenuMixedStateTemplate" width="14" height="4"/>
+        <image name="NSTouchBarGoDownTemplate" width="15" height="9"/>
+        <image name="NSTouchBarGoUpTemplate" width="15" height="9"/>
     </resources>
 </document>

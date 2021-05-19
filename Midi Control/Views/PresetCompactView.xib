@@ -27,6 +27,17 @@
                     <view key="contentView" id="SjY-bW-NWD">
                         <rect key="frame" x="1" y="1" width="198" height="48"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oq-9J-SXF">
+                                <rect key="frame" x="109" y="16" width="82" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Connected" id="FRg-S5-mt0">
+                                    <font key="font" size="11" name="ShreeDev0714"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
                     </view>
                     <color key="borderColor" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
                 </box>
@@ -40,10 +51,10 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ch-mf-ugl">
-                    <rect key="frame" x="31" y="9" width="88" height="16"/>
+                    <rect key="frame" x="32" y="10" width="88" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="IPb-JR-gux">
-                        <font key="font" size="13" name="ShreeDev0714"/>
+                        <font key="font" size="11" name="ShreeDev0714"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -56,15 +67,6 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Oq-9J-SXF">
-                    <rect key="frame" x="123" y="16" width="68" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="Connected" id="FRg-S5-mt0">
-                        <font key="font" size="13" name="ShreeDev0714"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
             <connections>
                 <outlet property="enabledCheckbox" destination="Qt0-nA-4lM" id="oa5-lN-jSK"/>

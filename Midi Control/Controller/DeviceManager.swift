@@ -34,10 +34,12 @@ class DeviceManager : NSWindowController {
     }
     
     @objc func refreshDevices() {
-        Connection.populateConnections()
+        Connection.populateConnections(context: parent.context)
         deviceTable.reloadData()
     }
 
+    @IBAction func forgetDevice(_ sender: Any) {
+    }
 }
 
 extension DeviceManager : NSTableViewDataSource {
@@ -80,7 +82,7 @@ extension DeviceManager : NSTableViewDelegate {
                     checkbox.state = item.visible ? .on : .off
                     checkbox.isEnabled = true
                 } else {
-                    checkbox.state = item.isEnabled ? .on : .off
+                    checkbox.state = item.connected ? .on : .off
                     checkbox.isEnabled = false
                 }
                 cell.addSubview(checkbox)
@@ -95,7 +97,7 @@ extension DeviceManager : NSTableViewDelegate {
     @objc func visibilityChange(sender: NSButton) {
         Connection.connections[sender.tag].visible = (sender.state == .on)
         
-        parent.updatePresets()
+        parent.updatePresetViews()
     }
     
 }

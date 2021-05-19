@@ -22,7 +22,7 @@ class PresetCompactView : NSView {
     @IBOutlet weak var statusLabel: NSTextField!
     @IBOutlet weak var backgroundBox: NSBox!
 
-    public var preset : Preset?
+    public var preset : Preset
     private let delegate : PresetViewDelegate?
     private var isSelected : Bool = false
     
@@ -41,6 +41,14 @@ class PresetCompactView : NSView {
         enabledCheckbox.target = self
         enabledCheckbox.action = #selector(boxChecked)
         
+        if let connection = preset.connection {
+            presetConnection.stringValue = connection.name
+            statusLabel.stringValue = connection.connected ? "Connected" : "Disconnected"
+        } else {
+            presetConnection.stringValue = "No Connection"
+            statusLabel.stringValue = "Disconnected"
+        }
+        
         refresh()
     }
     
@@ -49,7 +57,7 @@ class PresetCompactView : NSView {
     }
     
     @objc func boxChecked() {
-        preset?.isEnabled = (enabledCheckbox.state == .on)
+        preset.isEnabled = (enabledCheckbox.state == .on)
         if isSelected {
             delegate?.alteredPreset(self)
         }
@@ -78,10 +86,8 @@ class PresetCompactView : NSView {
     }
     
     func refresh() {
-        if let preset = preset {
-            presetName.stringValue = preset.name!
-            if let name = preset.connection?.name {presetConnection.stringValue = name}
-            enabledCheckbox.state = preset.isEnabled ? .on : .off
-        }
+        presetName.stringValue = preset.name
+        if let name = preset.connection?.name {presetConnection.stringValue = name}
+        enabledCheckbox.state = preset.isEnabled ? .on : .off
     }
 }

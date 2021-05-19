@@ -17,8 +17,8 @@ extension Connection {
     }
 
     @NSManaged public var id: Int32
-    @NSManaged public var isEnabled: Bool
-    @NSManaged public var name: String?
+    @NSManaged public var connected: Bool
+    @NSManaged public var name: String
     @NSManaged public var port: Int32
     @NSManaged public var visible: Bool
     @NSManaged public var presets: NSSet?

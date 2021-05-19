@@ -9,16 +9,9 @@ import Cocoa
 
 extension Preset {
     
-//    var name : String = ""
-//    var connection : Connection?
-//    var isEnabled : Bool = false
-//    var macros : [Macro] = []
-    
     convenience init(name: String) {
         self.init()
         self.name = name
-        
-        UserDefaults.standard.set(self, forKey: "Preset")
     }
     
     convenience init(name: String, connection: Connection) {

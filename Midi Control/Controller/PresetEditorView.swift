@@ -66,7 +66,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
                 presetNameField.layer?.borderColor = CGColor.init(gray: 0, alpha: 0)
                 
                 /* Set name */
-                presetNameField.stringValue = preset.name!
+                presetNameField.stringValue = preset.name
                 
                 /* Populate combo box */
                 connectionField.removeAllItems()
@@ -102,12 +102,13 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         self.contentView.frame = contentFrame
         self.addSubview(self.contentView)
         
-        refreshConnections()
         
         presetNameField.delegate = self
         connectionField.delegate = self
         
         deleteMacroButton.isEnabled = false
+        
+        refreshConnections()
         
         /* TODO: Refactor into @IBActions to reduce volume of code */
         setNameButton.action     = #selector(setNameClicked)
@@ -120,7 +121,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     @objc func addMacroButtonClicked(sender: NSButton) {
         if let preset = preset {
             addMacro(MacroView(delegate: self))
-            (preset.macros as! NSMutableOrderedSet).add(Macro())
+            preset.addToMacros(Macro())
         }
     }
     
@@ -156,6 +157,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     
     @objc func setNameClicked() {
         preset?.name = presetNameField.stringValue
+        parent.updatePresetViews()
     }
     
     required init?(coder aDecoder: NSCoder) {fatalError()}
@@ -172,7 +174,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     @objc func toggleEnabledSwitch() {
         if let preset = preset {
             preset.isEnabled = (enabledSwitch.state == .on)
-            for presetView in parent.presets {
+            for presetView in parent.presetViews {
                 if presetView.preset == preset {
                     presetView.enabledCheckbox.state = preset.isEnabled ? .on : .off
                 }

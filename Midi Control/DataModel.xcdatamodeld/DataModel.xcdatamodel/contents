@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Connection" representedClassName="Connection" syncable="YES">
+        <attribute name="connected" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="isEnabled" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="port" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="visible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
@@ -19,7 +19,7 @@
     <entity name="Preset" representedClassName="Preset" syncable="YES">
         <attribute name="isEnabled" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="connection" maxCount="1" deletionRule="Nullify" destinationEntity="Connection"/>
+        <relationship name="connection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Connection"/>
         <relationship name="macros" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Macro"/>
     </entity>
     <entity name="UMidiMessage" representedClassName="UMidiMessage" syncable="YES">
