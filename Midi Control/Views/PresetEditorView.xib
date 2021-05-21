@@ -13,7 +13,6 @@
                 <outlet property="controlView" destination="c22-O7-iKe" id="PN7-o5-2cx"/>
                 <outlet property="deleteMacroButton" destination="aaB-gm-LBW" id="GAl-9Y-0Ax"/>
                 <outlet property="enabledSwitch" destination="iV7-kT-Q7O" id="vm2-4Q-1aM"/>
-                <outlet property="macrosBox" destination="9Mn-w7-9EX" id="wJw-X6-W4G"/>
                 <outlet property="presetNameField" destination="sVc-LC-bYK" id="lIP-jC-4dg"/>
                 <outlet property="setNameButton" destination="nQ3-Bm-Ola" id="9cu-gJ-1no"/>
             </connections>
@@ -44,15 +43,6 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <box fixedFrame="YES" boxType="custom" cornerRadius="10" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="9Mn-w7-9EX">
-                                        <rect key="frame" x="10" y="10" width="472" height="205"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                        <view key="contentView" id="OCO-De-qjv">
-                                            <rect key="frame" x="1" y="1" width="470" height="203"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                        <color key="fillColor" name="quaternaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    </box>
                                     <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GQr-ia-jnP">
                                         <rect key="frame" x="209" y="256" width="170" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -117,6 +107,10 @@
                                             <font key="font" size="13" name="ShreeDev0714"/>
                                         </buttonCell>
                                     </button>
+                                    <browser verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" enabled="YES" hasHorizontalScroller="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="100" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="U36-g2-WIf">
+                                        <rect key="frame" x="20" y="16" width="443" height="221"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </browser>
                                 </subviews>
                             </view>
                         </subviews>
