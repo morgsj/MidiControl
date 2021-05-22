@@ -36,9 +36,12 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     /* The area where macros are displayed */
     @IBOutlet weak var macroTableView: NSTableView!
     
-    /* Buttons to add and remove macros */
+    /* Button to add macros */
     @IBOutlet weak var addMacroButton: NSButton!
-    @IBOutlet weak var deleteMacroButton: NSButton!
+    
+    /* Buttons to move macros */
+    @IBOutlet weak var moveMacroUpButton: NSButton!
+    @IBOutlet weak var moveMacroDownButton: NSButton!
     
     /* The view controller that this is a subview of */
     private let parent : ViewController
@@ -73,10 +76,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
                 enabledSwitch.state = preset.isEnabled ? .on : .off
                 
                 /* Display all the preset's macros */
-                // TODO: Display all the preset's macros
-//                for macro in preset.macros {
-//                    addMacro(macro)
-//                }
+                macroTableView.reloadData()
                 
             }
         }
@@ -94,9 +94,9 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         
         presetNameField.delegate = self
         connectionField.delegate = self
-        macroTableView.delegate = self
         
-        deleteMacroButton.isEnabled = false
+        macroTableView.delegate = self
+        macroTableView.dataSource = self
         
         refreshConnections()
         
@@ -104,18 +104,48 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         setNameButton.action     = #selector(setNameClicked)
         enabledSwitch.action     = #selector(toggleEnabledSwitch)
         addMacroButton.action    = #selector(addMacroButtonClicked)
-        deleteMacroButton.action = #selector(deleteMacro)
         
         
     }; required init?(coder aDecoder: NSCoder) {fatalError()}
     
     @objc func addMacroButtonClicked(sender: NSButton) {
-        
+        if let preset = preset {
+            let newMacro = Macro(context: parent.context)
+            newMacro.name = "New Macro"
+            newMacro.id = UUID()
+            
+            preset.addToMacros(newMacro)
+            
+            saveTableData()
+        }
     }
     
-    func addMacro() {}
+    func saveTableData() {
+        macroTableView.reloadData()
+        
+        do {try parent.context.save()}
+        catch {fatalError("Couldn't save: \(error)")}
+    }
     
-    @objc func deleteMacro() {
+    @IBAction func moveMacroUp(_ sender: Any) {
+        
+        if let preset = preset {
+        
+            let row = macroTableView.selectedRow
+            if row == 0 || row == -1 {return}
+            
+            let macro1 = preset.macros[row-1] as! Macro
+            let macro2 = preset.macros[row] as! Macro
+            
+            preset.replaceMacros(at: row, with: macro1)
+            preset.replaceMacros(at: row-1, with: macro2)
+            
+            saveTableData()
+            
+        }
+    }
+    
+    @IBAction func moveMacroDown(_ sender: Any) {
         
     }
     
@@ -165,7 +195,14 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     
 }
 
-extension PresetEditorView : NSTableViewDelegate {
+extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
+    
+    fileprivate enum CellIdentifiers {
+        static let NameCell = "NameCellID"
+        static let EnabledCell = "EnabledCellID"
+        static let BinCell = "BinCellID"
+    }
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         if let preset = preset {
             return preset.macros.count
@@ -175,21 +212,69 @@ extension PresetEditorView : NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        if let preset = preset {
+        guard let preset = preset else {return nil}
             
-            let macro = preset.macros[row] as! Macro
+        guard let macro = preset.macros[row] as? Macro else {return nil}
+        
+        var text : String?
+        var image: NSImage?
+        var cellIdentifier: String = ""
+        
+        if tableColumn == tableView.tableColumns[0] {
+            text = macro.name
+            cellIdentifier = CellIdentifiers.NameCell
+        } else if tableColumn == tableView.tableColumns[1] {
+            text = macro.enabled ? "Yes" : "No"
+            cellIdentifier = CellIdentifiers.EnabledCell
+        } else {
+            image = NSImage(systemSymbolName: "xmark.bin", accessibilityDescription: nil)
+            cellIdentifier = CellIdentifiers.BinCell
+        }
+        
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(cellIdentifier), owner: nil) as? NSTableCellView {
             
-            switch tableColumn?.title {
-                case "Macro":
-                    let label = NSTextField(frame: NSRect(width: 331, height: 16))
-                    label.stringValue = macro.name
-                    return label
-                case "Enabled":
-                    return NSButton(checkboxWithTitle: "", target: nil, action: nil)
-                default:
-                    return NSImageView(image: NSImage(systemSymbolName: "bin.xmark", accessibilityDescription: nil)!)
+            if let text = text {
+                cell.textField?.isEditable = true
+                cell.textField?.stringValue = text
+                cell.textField?.tag = row
+                cell.textField?.action = #selector(textFieldFinishedEditing)
             }
             
+            if let image = image {
+                cell.imageView?.image = image
+                cell.imageView?.tag = row
+                
+            }
+            
+            return cell
         } else {return nil}
+    }
+    
+    @objc func textFieldFinishedEditing(_ sender: NSTextField) {
+        if let macro = preset?.macros[sender.tag] as? Macro {
+            macro.name = sender.stringValue
+            preset?.replaceMacros(at: sender.tag, with: macro)
+            saveTableData()
+        }
+    }
+    
+    func tableView(tableView: NSTableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath)
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        for i in 0..<macroTableView.numberOfRows {
+            if macroTableView.isRowSelected(i) {
+                moveMacroUpButton.isEnabled = true
+                moveMacroDownButton.isEnabled = true
+                return
+            }
+        }
+        moveMacroUpButton.isEnabled = false
+        moveMacroDownButton.isEnabled = false
+    }
+    
+    func tableView(_ tableView: NSTableView, didClickRow row: Int, didClickColumn: Int) {
+        print("row \(row), col \(didClickColumn) ")
     }
 }

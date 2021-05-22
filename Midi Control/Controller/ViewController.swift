@@ -36,7 +36,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         presetEditor = PresetEditorView(self)
         presetEditorContainer.addSubview(presetEditor!)
         

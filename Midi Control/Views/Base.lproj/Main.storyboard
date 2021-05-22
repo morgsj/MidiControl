@@ -22,7 +22,9 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Wiki" id="BOF-NM-1cW">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Hide Midi Control" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
@@ -50,9 +52,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Support" id="dMs-cI-mzQ">
+                            <menuItem title="Support Me" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Support" id="bib-Uj-vzu">
+                                <menu key="submenu" title="Support Me" id="bib-Uj-vzu">
                                     <items>
                                         <menuItem title="GitHub" id="Was-JA-tGl">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -71,9 +73,6 @@
                                 <connections>
                                     <action selector="githubButtonPressed:" target="Voe-Tx-rLC" id="8be-RF-jlf"/>
                                 </connections>
-                            </menuItem>
-                            <menuItem title="Edit" id="5QF-Oa-p0T">
-                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                             <menuItem title="Format" id="jxT-CU-nIS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -103,8 +102,8 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" title="Midi Control (Alpha)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
@@ -120,13 +119,13 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Midi Control-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Midi_Control" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Midi Control" id="XfG-lQ-9wD" customClass="ViewController" customModule="Midi_Control" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="ac0-mA-29X">
                         <rect key="frame" x="0.0" y="0.0" width="700" height="400"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <scrollView identifier="PresetSelector" fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1Z-by-Ppx">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="350"/>

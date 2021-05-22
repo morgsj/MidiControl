@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
    
     static let midi = MIDI()
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {        
         AppDelegate.midi.openInput()
         AppDelegate.midi.addListener(MIDIReceiver())
     }
@@ -24,16 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AppDelegate.midi.closeInput()
     }
 
-    
-    
     @IBAction func githubButtonPressed(_ sender: Any) {
-        print("okay gurl")
         let url = URL(string: "https://www.github.com/morgsj/MidiControl")!
         NSWorkspace.shared.open(url)
     }
     
     @IBAction func coffeeButtonPressed(_ sender: Any) {
-        let url = URL(string: "https://www.github.com/morgsj/MidiControl")!
+        let url = URL(string: "https://www.buymeacoffee.com/morganj")!
         NSWorkspace.shared.open(url)
     }
     
