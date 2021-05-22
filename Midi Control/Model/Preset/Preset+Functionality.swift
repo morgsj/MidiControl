@@ -22,7 +22,7 @@ extension Preset {
     }
     
     func received(message : UMidiMessage) {
-        for macro in macros! {
+        for macro in macros {
             if let macro = macro as? Macro {
                 if macro.matches(message) {macro.execute()}
             }

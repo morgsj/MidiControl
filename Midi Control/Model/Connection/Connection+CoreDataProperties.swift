@@ -2,7 +2,7 @@
 //  Connection+CoreDataProperties.swift
 //  Midi Control
 //
-//  Created by Morgan Jones on 17/05/2021.
+//  Created by Morgan Jones on 21/05/2021.
 //
 //
 
@@ -16,10 +16,9 @@ extension Connection {
         return NSFetchRequest<Connection>(entityName: "Connection")
     }
 
-    @NSManaged public var id: Int32
     @NSManaged public var connected: Bool
-    @NSManaged public var name: String
-    @NSManaged public var port: Int32
+    @NSManaged public var id: Int32
+    @NSManaged public var name: String?
     @NSManaged public var visible: Bool
     @NSManaged public var presets: NSSet?
 

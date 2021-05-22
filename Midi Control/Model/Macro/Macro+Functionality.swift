@@ -17,7 +17,7 @@ extension Macro {
     }
     
     func execute() {
-        for shortcut in response! {(shortcut as! KeyboardShortcut).execute()}
+        for shortcut in response {(shortcut as! KeyboardShortcut).execute()}
     }
     
 }

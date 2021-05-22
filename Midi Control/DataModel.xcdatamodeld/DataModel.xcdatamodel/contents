@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Connection" representedClassName="Connection" syncable="YES">
         <attribute name="connected" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="port" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="visible" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <relationship name="presets" toMany="YES" deletionRule="Nullify" destinationEntity="Preset"/>
     </entity>
@@ -12,7 +11,9 @@
         <attribute name="keyCodes" attributeType="Transformable"/>
     </entity>
     <entity name="Macro" representedClassName="Macro" syncable="YES">
+        <attribute name="enabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="response" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="KeyboardShortcut"/>
         <relationship name="trigger" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="UMidiMessage"/>
     </entity>
@@ -29,9 +30,9 @@
         <attribute name="value" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Connection" positionX="0" positionY="72" width="128" height="119"/>
+        <element name="Connection" positionX="0" positionY="72" width="128" height="104"/>
         <element name="KeyboardShortcut" positionX="27" positionY="126" width="128" height="44"/>
-        <element name="Macro" positionX="54" positionY="135" width="128" height="74"/>
+        <element name="Macro" positionX="54" positionY="135" width="128" height="104"/>
         <element name="Preset" positionX="9" positionY="99" width="128" height="89"/>
         <element name="UMidiMessage" positionX="-36" positionY="9" width="128" height="89"/>
     </elements>

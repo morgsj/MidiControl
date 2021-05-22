@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroEditorDelegate {
+class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     
     /* Ensures the coordinate system has the origin at top right */
     override var isFlipped: Bool { return true }
@@ -34,15 +34,11 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
     @IBOutlet weak var setNameButton: NSButton!
     
     /* The area where macros are displayed */
-    @IBOutlet weak var macrosBox: NSBox!
-    private let MACROS_BOX_MIN_HEIGHT = 205
+    @IBOutlet weak var macroTableView: NSTableView!
     
     /* Buttons to add and remove macros */
     @IBOutlet weak var addMacroButton: NSButton!
     @IBOutlet weak var deleteMacroButton: NSButton!
-    
-    /* List of macroViews to display in the macro box */
-    private var macroViews : [MacroView] = []
     
     /* The view controller that this is a subview of */
     private let parent : ViewController
@@ -54,12 +50,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         }
         set {
             p = newValue
-            
-            /* Remove all macros currently in view */
-            for view in macroViews {
-                view.removeFromSuperview()
-            }
-            macroViews.removeAll()
             
             if let preset = p { /* Check that the preset passed in is valid */
                 
@@ -83,12 +73,11 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
                 enabledSwitch.state = preset.isEnabled ? .on : .off
                 
                 /* Display all the preset's macros */
-                for macro in preset.macros! {
-                    addMacro(MacroView(delegate: self, macro: macro as! Macro))
-                }
+                // TODO: Display all the preset's macros
+//                for macro in preset.macros {
+//                    addMacro(macro)
+//                }
                 
-                /* Adjust macro box size */
-                setBoxSize()
             }
         }
     }; private var p : Preset?
@@ -105,6 +94,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         
         presetNameField.delegate = self
         connectionField.delegate = self
+        macroTableView.delegate = self
         
         deleteMacroButton.isEnabled = false
         
@@ -116,43 +106,17 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         addMacroButton.action    = #selector(addMacroButtonClicked)
         deleteMacroButton.action = #selector(deleteMacro)
         
-    }
+        
+    }; required init?(coder aDecoder: NSCoder) {fatalError()}
     
     @objc func addMacroButtonClicked(sender: NSButton) {
-        if let preset = preset {
-            addMacro(MacroView(delegate: self))
-            preset.addToMacros(Macro())
-        }
+        
     }
     
-    func addMacro(_ macroView: MacroView) {
-        macroView.frame = NSRect(x: 0, y: MacroView.MIN_HEIGHT*CGFloat(macroViews.count), width: MacroView.WIDTH, height: MacroView.MIN_HEIGHT)
-        macroViews.append(macroView)
-        setBoxSize()
-        macrosBox.addSubview(macroView)
-    }
-    
-    func setBoxSize() {
-        macrosBox.setFrameSize(NSSize(width: Int(MacroView.WIDTH), height: Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.MIN_HEIGHT) * macroViews.count))))
-        macrosBox.setFrameOrigin(NSPoint(x: 10, y: 10 + MACROS_BOX_MIN_HEIGHT - Int(max(MACROS_BOX_MIN_HEIGHT, Int(MacroView.MIN_HEIGHT) * macroViews.count))))
-//
-//        let frameSize = NSSize(width: PresetEditorView.WIDTH, height: PresetEditorView.HEIGHT - CGFloat(MACROS_BOX_MIN_HEIGHT) + macrosBox.frame.height)
-//        self.setFrameSize(frameSize)
-//        self.contentView.setFrameSize(frameSize)
-    }
+    func addMacro() {}
     
     @objc func deleteMacro() {
-        if let selectedMacroView = selectedMacro {
-            (preset!.macros as! NSMutableOrderedSet).remove({$0 === selectedMacroView.macro})
-            for view in macroViews {
-                view.removeFromSuperview()
-            }
-            macroViews.removeAll()
-            for macro in preset!.macros! {
-                addMacro(MacroView(delegate: self, macro: macro as! Macro))
-            }
-            
-        }
+        
     }
     
     @objc func setNameClicked() {
@@ -160,7 +124,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         parent.updatePresetViews()
     }
     
-    required init?(coder aDecoder: NSCoder) {fatalError()}
     
     func refreshConnections() {
         connectionField.removeAllItems()
@@ -200,31 +163,33 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate, MacroE
         return true
     }
     
-    // MARK: MacroEditorDelegate methods
-    
-    var selectedMacro : MacroView?
-    
-    func macroSelected(_ mv: MacroView) {
-        selectedMacro = mv
-        deleteMacroButton.isEnabled = true
-        mv.select()
-        
-        for macroView in macroViews {
-            if macroView != mv {
-                macroView.deselect()
-            }
+}
+
+extension PresetEditorView : NSTableViewDelegate {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        if let preset = preset {
+            return preset.macros.count
+        } else {
+            return 0
         }
     }
     
-    func macroDeselected(_ mv: MacroView) {
-        selectedMacro = nil
-        deleteMacroButton.isEnabled = false
-        mv.deselect()
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        if let preset = preset {
+            
+            let macro = preset.macros[row] as! Macro
+            
+            switch tableColumn?.title {
+                case "Macro":
+                    let label = NSTextField(frame: NSRect(width: 331, height: 16))
+                    label.stringValue = macro.name
+                    return label
+                case "Enabled":
+                    return NSButton(checkboxWithTitle: "", target: nil, action: nil)
+                default:
+                    return NSImageView(image: NSImage(systemSymbolName: "bin.xmark", accessibilityDescription: nil)!)
+            }
+            
+        } else {return nil}
     }
-    
-    func alteredMacro(_ mv: MacroView) {
-        // TODO
-    }
-    
-    
 }
