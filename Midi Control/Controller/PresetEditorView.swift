@@ -97,6 +97,9 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         
         macroTableView.delegate = self
         macroTableView.dataSource = self
+        macroTableView.target = self
+        macroTableView.action = #selector(tableViewClicked)
+
         
         refreshConnections()
         
@@ -127,8 +130,8 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         catch {fatalError("Couldn't save: \(error)")}
     }
     
+    //TODO: FIX THIS
     @IBAction func moveMacroUp(_ sender: Any) {
-        
         if let preset = preset {
         
             let row = macroTableView.selectedRow
@@ -144,9 +147,20 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
             
         }
     }
-    
     @IBAction func moveMacroDown(_ sender: Any) {
+        if let preset = preset {
         
+            let row = macroTableView.selectedRow
+            if row == macroTableView.numberOfRows-1 || row == -1 {return}
+            
+            let macro1 = preset.macros[row] as! Macro
+            let macro2 = preset.macros[row+1] as! Macro
+            
+            preset.replaceMacros(at: row+1, with: macro1)
+            preset.replaceMacros(at: row, with: macro2)
+            
+            saveTableData()
+        }
     }
     
     @objc func setNameClicked() {
@@ -243,13 +257,16 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
             if let image = image {
                 cell.imageView?.image = image
                 cell.imageView?.tag = row
-                
             }
             
             return cell
         } else {return nil}
     }
     
+    @objc func binMacro(_ sender: NSImageView) {
+        print("ok baby")
+    }
+
     @objc func textFieldFinishedEditing(_ sender: NSTextField) {
         if let macro = preset?.macros[sender.tag] as? Macro {
             macro.name = sender.stringValue
@@ -274,7 +291,11 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
         moveMacroDownButton.isEnabled = false
     }
     
-    func tableView(_ tableView: NSTableView, didClickRow row: Int, didClickColumn: Int) {
-        print("row \(row), col \(didClickColumn) ")
+    @objc func tableViewClicked() {
+        if macroTableView.clickedColumn == 2 {
+            parent.context.delete(preset?.macros[macroTableView.clickedRow] as! Macro)
+            preset?.removeFromMacros(at: macroTableView.clickedRow)
+            saveTableData()
+        }
     }
 }
