@@ -14,14 +14,11 @@
 		67257D5125FD7A5D009425A0 /* Macro+Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5025FD7A5D009425A0 /* Macro+Functionality.swift */; };
 		67257D5425FD7B72009425A0 /* UMidiMessage+Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5325FD7B72009425A0 /* UMidiMessage+Functionality.swift */; };
 		67257D5825FD8193009425A0 /* KeyboardShortcut+Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67257D5725FD8192009425A0 /* KeyboardShortcut+Functionality.swift */; };
-		6725888D260B55210028BAAD /* MacroEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725888C260B55210028BAAD /* MacroEditorDelegate.swift */; };
 		67311C4F26345410001DBF67 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 67311C4E26345410001DBF67 /* .gitignore */; };
 		679679BD2652C2320028318C /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679679BC2652C2320028318C /* PersistentContainer.swift */; };
 		67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */; };
 		67C65D212652C8B4006D68DE /* UMidiMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D172652C8B4006D68DE /* UMidiMessage+CoreDataClass.swift */; };
 		67C65D222652C8B4006D68DE /* UMidiMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D182652C8B4006D68DE /* UMidiMessage+CoreDataProperties.swift */; };
-		67C65D232652C8B4006D68DE /* Connection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D192652C8B4006D68DE /* Connection+CoreDataClass.swift */; };
-		67C65D242652C8B4006D68DE /* Connection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1A2652C8B4006D68DE /* Connection+CoreDataProperties.swift */; };
 		67C65D252652C8B4006D68DE /* Preset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1B2652C8B4006D68DE /* Preset+CoreDataClass.swift */; };
 		67C65D262652C8B4006D68DE /* Preset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1C2652C8B4006D68DE /* Preset+CoreDataProperties.swift */; };
 		67C65D272652C8B4006D68DE /* Macro+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1D2652C8B4006D68DE /* Macro+CoreDataClass.swift */; };
@@ -29,8 +26,6 @@
 		67C65D292652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1F2652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift */; };
 		67C65D2A2652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D202652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift */; };
 		67DFCD0F2652B3D200EB54C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67DFCD0D2652B3D200EB54C6 /* DataModel.xcdatamodeld */; };
-		67EFF8402604067200D61982 /* MacroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67EFF83F2604067200D61982 /* MacroView.xib */; };
-		67EFF8432604068E00D61982 /* MacroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EFF8422604068E00D61982 /* MacroView.swift */; };
 		67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6225FAA0D800FD78EC /* AppDelegate.swift */; };
 		67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6425FAA0D800FD78EC /* ViewController.swift */; };
 		67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A6625FAA0DA00FD78EC /* Assets.xcassets */; };
@@ -41,6 +36,8 @@
 		67F27A8925FAC1BD00FD78EC /* PresetCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */; };
 		904C1B9D2651133200C28B01 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 904C1B9C2651133200C28B01 /* AudioKit */; };
 		904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */; };
+		907C16902657E41D0001D189 /* Connection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */; };
+		907C16912657E41D0001D189 /* Connection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,14 +48,11 @@
 		67257D5025FD7A5D009425A0 /* Macro+Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Macro+Functionality.swift"; sourceTree = "<group>"; };
 		67257D5325FD7B72009425A0 /* UMidiMessage+Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UMidiMessage+Functionality.swift"; sourceTree = "<group>"; };
 		67257D5725FD8192009425A0 /* KeyboardShortcut+Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+Functionality.swift"; sourceTree = "<group>"; };
-		6725888C260B55210028BAAD /* MacroEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroEditorDelegate.swift; sourceTree = "<group>"; };
 		67311C4E26345410001DBF67 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		679679BC2652C2320028318C /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetViewDelegate.swift; sourceTree = "<group>"; };
 		67C65D172652C8B4006D68DE /* UMidiMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UMidiMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
 		67C65D182652C8B4006D68DE /* UMidiMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UMidiMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		67C65D192652C8B4006D68DE /* Connection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataClass.swift"; sourceTree = "<group>"; };
-		67C65D1A2652C8B4006D68DE /* Connection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67C65D1B2652C8B4006D68DE /* Preset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+CoreDataClass.swift"; sourceTree = "<group>"; };
 		67C65D1C2652C8B4006D68DE /* Preset+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preset+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67C65D1D2652C8B4006D68DE /* Macro+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Macro+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -66,8 +60,6 @@
 		67C65D1F2652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+CoreDataClass.swift"; sourceTree = "<group>"; };
 		67C65D202652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67DFCD0E2652B3D200EB54C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		67EFF83F2604067200D61982 /* MacroView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MacroView.xib; sourceTree = "<group>"; };
-		67EFF8422604068E00D61982 /* MacroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroView.swift; sourceTree = "<group>"; };
 		67F27A5F25FAA0D800FD78EC /* Midi Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Midi Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F27A6225FAA0D800FD78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F27A6425FAA0D800FD78EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +72,8 @@
 		67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCompactView.xib; sourceTree = "<group>"; };
 		67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCompactView.swift; sourceTree = "<group>"; };
 		904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIReceiver.swift; sourceTree = "<group>"; };
+		907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataClass.swift"; sourceTree = "<group>"; };
+		907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +94,6 @@
 				67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */,
 				67072538260608C900A9E2C9 /* DeviceManager.xib */,
 				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
-				67EFF83F2604067200D61982 /* MacroView.xib */,
 				6723AAB925FE5CDB00E06268 /* PresetEditorView.xib */,
 			);
 			path = Views;
@@ -110,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */,
-				67EFF8422604068E00D61982 /* MacroView.swift */,
 				6707253C26060BCC00A9E2C9 /* DeviceManager.swift */,
 				6723AABD25FE5FA100E06268 /* PresetEditorView.swift */,
 				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
@@ -136,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				67C0446C25FC224800BA0B24 /* PresetViewDelegate.swift */,
-				6725888C260B55210028BAAD /* MacroEditorDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -174,8 +165,8 @@
 		67C134B42654118D009BF563 /* Connection */ = {
 			isa = PBXGroup;
 			children = (
-				67C65D192652C8B4006D68DE /* Connection+CoreDataClass.swift */,
-				67C65D1A2652C8B4006D68DE /* Connection+CoreDataProperties.swift */,
+				907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */,
+				907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */,
 				67F27A7925FABFB200FD78EC /* Connection+Functionality.swift */,
 			);
 			path = Connection;
@@ -292,7 +283,6 @@
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
 				67072539260608C900A9E2C9 /* DeviceManager.xib in Resources */,
-				67EFF8402604067200D61982 /* MacroView.xib in Resources */,
 				6723AABA25FE5CDB00E06268 /* PresetEditorView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,27 +295,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				67C65D222652C8B4006D68DE /* UMidiMessage+CoreDataProperties.swift in Sources */,
+				907C16912657E41D0001D189 /* Connection+CoreDataProperties.swift in Sources */,
 				67C65D292652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift in Sources */,
-				67C65D242652C8B4006D68DE /* Connection+CoreDataProperties.swift in Sources */,
 				67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */,
 				6707253D26060BCC00A9E2C9 /* DeviceManager.swift in Sources */,
 				6723AABE25FE5FA100E06268 /* PresetEditorView.swift in Sources */,
 				679679BD2652C2320028318C /* PersistentContainer.swift in Sources */,
 				67C65D282652C8B4006D68DE /* Macro+CoreDataProperties.swift in Sources */,
+				907C16902657E41D0001D189 /* Connection+CoreDataClass.swift in Sources */,
 				904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */,
 				67257D5825FD8193009425A0 /* KeyboardShortcut+Functionality.swift in Sources */,
 				67C65D262652C8B4006D68DE /* Preset+CoreDataProperties.swift in Sources */,
-				67EFF8432604068E00D61982 /* MacroView.swift in Sources */,
 				67DFCD0F2652B3D200EB54C6 /* DataModel.xcdatamodeld in Sources */,
 				67257D5125FD7A5D009425A0 /* Macro+Functionality.swift in Sources */,
 				67C65D252652C8B4006D68DE /* Preset+CoreDataClass.swift in Sources */,
 				67F27A7725FABF0A00FD78EC /* Preset+Functionality.swift in Sources */,
 				67C65D272652C8B4006D68DE /* Macro+CoreDataClass.swift in Sources */,
-				67C65D232652C8B4006D68DE /* Connection+CoreDataClass.swift in Sources */,
 				67C65D2A2652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift in Sources */,
 				67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */,
 				67C65D212652C8B4006D68DE /* UMidiMessage+CoreDataClass.swift in Sources */,
-				6725888D260B55210028BAAD /* MacroEditorDelegate.swift in Sources */,
 				67257D5425FD7B72009425A0 /* UMidiMessage+Functionality.swift in Sources */,
 				67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */,
 				67F27A7A25FABFB200FD78EC /* Connection+Functionality.swift in Sources */,

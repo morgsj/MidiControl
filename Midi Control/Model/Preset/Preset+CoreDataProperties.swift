@@ -19,7 +19,7 @@ extension Preset {
     @NSManaged public var isEnabled: Bool
     @NSManaged public var name: String
     @NSManaged public var connection: Connection?
-    @NSManaged public var macros: NSOrderedSet?
+    @NSManaged public var macros: NSOrderedSet
 
 }
 

@@ -42,7 +42,7 @@ class PresetCompactView : NSView {
         enabledCheckbox.action = #selector(boxChecked)
         
         if let connection = preset.connection {
-            presetConnection.stringValue = connection.name
+            presetConnection.stringValue = connection.name!
             statusLabel.stringValue = connection.connected ? "Connected" : "Disconnected"
         } else {
             presetConnection.stringValue = "No Connection"
