@@ -25,6 +25,8 @@
 		67C65D282652C8B4006D68DE /* Macro+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1E2652C8B4006D68DE /* Macro+CoreDataProperties.swift */; };
 		67C65D292652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D1F2652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift */; };
 		67C65D2A2652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C65D202652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift */; };
+		67CEB8B0265A946E00760D11 /* MacroEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEB8AE265A946E00760D11 /* MacroEditor.swift */; };
+		67CEB8B1265A946E00760D11 /* MacroEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CEB8AF265A946E00760D11 /* MacroEditor.xib */; };
 		67DFCD0F2652B3D200EB54C6 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67DFCD0D2652B3D200EB54C6 /* DataModel.xcdatamodeld */; };
 		67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6225FAA0D800FD78EC /* AppDelegate.swift */; };
 		67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A6425FAA0D800FD78EC /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		67C65D1E2652C8B4006D68DE /* Macro+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Macro+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		67C65D1F2652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+CoreDataClass.swift"; sourceTree = "<group>"; };
 		67C65D202652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcut+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67CEB8AE265A946E00760D11 /* MacroEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroEditor.swift; sourceTree = "<group>"; };
+		67CEB8AF265A946E00760D11 /* MacroEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MacroEditor.xib; sourceTree = "<group>"; };
 		67DFCD0E2652B3D200EB54C6 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		67F27A5F25FAA0D800FD78EC /* Midi Control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Midi Control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F27A6225FAA0D800FD78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 		6723AAB625FE5B2F00E06268 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				67CEB8AF265A946E00760D11 /* MacroEditor.xib */,
 				67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */,
 				67072538260608C900A9E2C9 /* DeviceManager.xib */,
 				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
@@ -106,6 +111,7 @@
 				6707253C26060BCC00A9E2C9 /* DeviceManager.swift */,
 				6723AABD25FE5FA100E06268 /* PresetEditorView.swift */,
 				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
+				67CEB8AE265A946E00760D11 /* MacroEditor.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */,
+				67CEB8B1265A946E00760D11 /* MacroEditor.xib in Resources */,
 				67311C4F26345410001DBF67 /* .gitignore in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
@@ -314,6 +321,7 @@
 				67C65D2A2652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift in Sources */,
 				67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */,
 				67C65D212652C8B4006D68DE /* UMidiMessage+CoreDataClass.swift in Sources */,
+				67CEB8B0265A946E00760D11 /* MacroEditor.swift in Sources */,
 				67257D5425FD7B72009425A0 /* UMidiMessage+Functionality.swift in Sources */,
 				67F27A6325FAA0D800FD78EC /* AppDelegate.swift in Sources */,
 				67F27A7A25FABFB200FD78EC /* Connection+Functionality.swift in Sources */,

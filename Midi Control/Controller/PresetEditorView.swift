@@ -46,6 +46,8 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     /* The view controller that this is a subview of */
     private let parent : ViewController
     
+    var macroEditor : MacroEditor?
+    
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
 
     
@@ -104,6 +106,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         macroTableView.action = #selector(tableViewClicked)
         
         macroTableView.registerForDraggedTypes([dragDropType])
+        macroTableView.doubleAction = #selector(doubleClicked)
         
         refreshConnections()
         
@@ -221,6 +224,17 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         return true
     }
     
+    
+    @objc func doubleClicked(_ sender: NSTableView) {
+        if macroEditor != nil {
+            macroEditor!.close()
+        }
+        print("about to call")
+        macroEditor = MacroEditor()
+        macroEditor?.showWindow(self)
+
+    }
+    
 }
 
 extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
@@ -312,5 +326,6 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
             saveTableData()
         }
     }
+    
     
 }
