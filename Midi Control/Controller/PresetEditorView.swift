@@ -46,6 +46,9 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     /* The view controller that this is a subview of */
     private let parent : ViewController
     
+    private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
+
+    
     /* The preset we are editing */
     var preset : Preset? {
         get {
@@ -99,7 +102,8 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         macroTableView.dataSource = self
         macroTableView.target = self
         macroTableView.action = #selector(tableViewClicked)
-
+        
+        macroTableView.registerForDraggedTypes([dragDropType])
         
         refreshConnections()
         
@@ -133,33 +137,43 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     //TODO: FIX THIS
     @IBAction func moveMacroUp(_ sender: Any) {
         if let preset = preset {
-        
+            
             let row = macroTableView.selectedRow
             if row == 0 || row == -1 {return}
             
-            let macro1 = preset.macros[row-1] as! Macro
-            let macro2 = preset.macros[row] as! Macro
+            macroTableView.moveRow(at: row, to: row - 1)
             
-            preset.replaceMacros(at: row, with: macro1)
-            preset.replaceMacros(at: row-1, with: macro2)
+            var macros = preset.macros.array
             
-            saveTableData()
+            let temp = macros[row]
+            macros[row] = macros[row - 1]
+            macros[row - 1] = temp
             
+            preset.macros = NSOrderedSet(array: macros)
+            
+            do {try parent.context.save()}
+            catch {fatalError("Couldn't save: \(error)")}
         }
     }
+    
     @IBAction func moveMacroDown(_ sender: Any) {
         if let preset = preset {
-        
+            
             let row = macroTableView.selectedRow
-            if row == macroTableView.numberOfRows-1 || row == -1 {return}
+            if row == preset.macros.count - 1 || row == -1 {return}
             
-            let macro1 = preset.macros[row] as! Macro
-            let macro2 = preset.macros[row+1] as! Macro
+            macroTableView.moveRow(at: row, to: row + 1)
             
-            preset.replaceMacros(at: row+1, with: macro1)
-            preset.replaceMacros(at: row, with: macro2)
+            var macros = preset.macros.array
             
-            saveTableData()
+            let temp = macros[row]
+            macros[row] = macros[row + 1]
+            macros[row + 1] = temp
+            
+            preset.macros = NSOrderedSet(array: macros)
+            
+            do {try parent.context.save()}
+            catch {fatalError("Couldn't save: \(error)")}
         }
     }
     
@@ -298,4 +312,5 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
             saveTableData()
         }
     }
+    
 }
