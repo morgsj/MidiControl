@@ -36,6 +36,8 @@
 		67F27A7A25FABFB200FD78EC /* Connection+Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Connection+Functionality.swift */; };
 		67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */; };
 		67F27A8925FAC1BD00FD78EC /* PresetCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */; };
+		903D5091265BE9DC00B1C0DB /* ForgottenDevicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903D508F265BE9DC00B1C0DB /* ForgottenDevicesManager.swift */; };
+		903D5092265BE9DC00B1C0DB /* ForgottenDevicesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903D5090265BE9DC00B1C0DB /* ForgottenDevicesManager.xib */; };
 		904C1B9D2651133200C28B01 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 904C1B9C2651133200C28B01 /* AudioKit */; };
 		904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */; };
 		907C16902657E41D0001D189 /* Connection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */; };
@@ -75,6 +77,8 @@
 		67F27A7925FABFB200FD78EC /* Connection+Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+Functionality.swift"; sourceTree = "<group>"; };
 		67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCompactView.xib; sourceTree = "<group>"; };
 		67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCompactView.swift; sourceTree = "<group>"; };
+		903D508F265BE9DC00B1C0DB /* ForgottenDevicesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgottenDevicesManager.swift; sourceTree = "<group>"; };
+		903D5090265BE9DC00B1C0DB /* ForgottenDevicesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForgottenDevicesManager.xib; sourceTree = "<group>"; };
 		904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIReceiver.swift; sourceTree = "<group>"; };
 		907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataClass.swift"; sourceTree = "<group>"; };
 		907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			children = (
 				67CEB8AF265A946E00760D11 /* MacroEditor.xib */,
 				67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */,
+				903D5090265BE9DC00B1C0DB /* ForgottenDevicesManager.xib */,
 				67072538260608C900A9E2C9 /* DeviceManager.xib */,
 				67F27A6825FAA0DA00FD78EC /* Main.storyboard */,
 				6723AAB925FE5CDB00E06268 /* PresetEditorView.xib */,
@@ -111,6 +116,7 @@
 				6707253C26060BCC00A9E2C9 /* DeviceManager.swift */,
 				6723AABD25FE5FA100E06268 /* PresetEditorView.swift */,
 				67F27A6425FAA0D800FD78EC /* ViewController.swift */,
+				903D508F265BE9DC00B1C0DB /* ForgottenDevicesManager.swift */,
 				67CEB8AE265A946E00760D11 /* MacroEditor.swift */,
 			);
 			path = Controller;
@@ -286,6 +292,7 @@
 			files = (
 				67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */,
 				67CEB8B1265A946E00760D11 /* MacroEditor.xib in Resources */,
+				903D5092265BE9DC00B1C0DB /* ForgottenDevicesManager.xib in Resources */,
 				67311C4F26345410001DBF67 /* .gitignore in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
@@ -307,6 +314,7 @@
 				67F27A6525FAA0D800FD78EC /* ViewController.swift in Sources */,
 				6707253D26060BCC00A9E2C9 /* DeviceManager.swift in Sources */,
 				6723AABE25FE5FA100E06268 /* PresetEditorView.swift in Sources */,
+				903D5091265BE9DC00B1C0DB /* ForgottenDevicesManager.swift in Sources */,
 				679679BD2652C2320028318C /* PersistentContainer.swift in Sources */,
 				67C65D282652C8B4006D68DE /* Macro+CoreDataProperties.swift in Sources */,
 				907C16902657E41D0001D189 /* Connection+CoreDataClass.swift in Sources */,

@@ -226,13 +226,19 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     
     
     @objc func doubleClicked(_ sender: NSTableView) {
-        if macroEditor != nil {
-            macroEditor!.close()
+       
+        
+        let selectedRow = macroTableView.selectedRow
+        
+        if selectedRow != -1 && preset != nil {
+            if macroEditor != nil {
+                macroEditor!.close()
+            }
+            
+            macroEditor = MacroEditor(macro: preset!.macros[selectedRow] as! Macro, parent: self)
+            macroEditor?.showWindow(self)
+            
         }
-        print("about to call")
-        macroEditor = MacroEditor()
-        macroEditor?.showWindow(self)
-
     }
     
 }

@@ -24,21 +24,34 @@ class DeviceManager : NSWindowController {
         deviceTable.delegate = self
         deviceTable.dataSource = self
         
-        refreshDevices()
-        print(Connection.connections.count)
-        refreshButton.action = #selector(refreshDevices)
+        refreshDevices(nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func refreshDevices() {
+    // TODO: still doesn't quite work?
+    @IBAction func refreshDevices(_ sender: NSButton?) {
         Connection.populateConnections(context: parent.context)
         deviceTable.reloadData()
     }
 
     @IBAction func forgetDevice(_ sender: Any) {
+        let row = deviceTable.selectedRow
+        if (row != -1) {
+            
+            let conn = Connection.connections[row]
+            conn.forgotten = true
+            Connection.connections[row] = conn
+            
+            do {try parent.context.save(); print("saved")} catch {fatalError("Couldn't save")}
+            
+            Connection.populateConnections(context: parent.context)
+            deviceTable.removeRows(at: IndexSet(integer: row), withAnimation: NSTableView.AnimationOptions())
+            
+        }
+        
     }
 }
 

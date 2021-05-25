@@ -40,6 +40,18 @@ class ViewController: NSViewController {
         presetEditor = PresetEditorView(self)
         presetEditorContainer.addSubview(presetEditor!)
         
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Connection")
+//        let predicate = NSPredicate(format: "forgotten == 0")
+//        request.predicate = predicate
+//
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+//
+//        do {
+//            print("\nabout to delete")
+//            try context.execute(deleteRequest)
+//            print("deleted all connections")
+//        } catch {fatalError("Couldn't delete")}
+        
         fetchPresets()
         updatePresetViews()
         

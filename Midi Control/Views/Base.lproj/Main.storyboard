@@ -52,6 +52,29 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Help" id="10r-tZ-bLO" userLabel="Help">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Help" id="wYi-W8-dfi">
+                                    <items>
+                                        <menuItem title="Wiki" id="OB7-Ro-AHU">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="githubButtonPressed:" target="Voe-Tx-rLC" id="axv-eB-KiM"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="0hg-nA-MAC"/>
+                                        <menuItem title="Forgotten Devices" id="Kkc-hu-Xhk">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="loadForgottenDevices:" target="Voe-Tx-rLC" id="aRo-ao-ytr"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                                <connections>
+                                    <action selector="githubButtonPressed:" target="Voe-Tx-rLC" id="Lk4-kI-xYh"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Support Me" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Support Me" id="bib-Uj-vzu">
@@ -73,18 +96,6 @@
                                 <connections>
                                     <action selector="githubButtonPressed:" target="Voe-Tx-rLC" id="8be-RF-jlf"/>
                                 </connections>
-                            </menuItem>
-                            <menuItem title="Format" id="jxT-CU-nIS">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="View" id="H8h-7b-M4v">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Window" id="aUF-d1-5bR">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Help" id="wpr-3q-Mcd">
-                                <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
                     </menu>

@@ -44,10 +44,9 @@ extension Connection {
     static var activeConnections : [MIDIUniqueID : Connection] = [:]
     
     static func populateConnections(context: NSManagedObjectContext) {
+        
         // First we get all the connections from the data model
-        Connection.connections = []
-        do {Connection.connections = try context.fetch(Connection.fetchRequest()) as! [Connection]}
-        catch {fatalError("Could not get connections from data model")}
+        do {Connection.connections = try context.fetch(Connection.fetchRequest())} catch {fatalError("Couldn't fetch forgotten devices: \(error)")}
         
         // Now we get all of the active connections
         let inputNames : [String] = AppDelegate.midi.inputNames
@@ -57,25 +56,33 @@ extension Connection {
         print(inputUIDs)
         
         Connection.activeConnections = [:]
-        
         for i in 0..<inputNames.count {
-            let connection = Connection(name: inputNames[i], id: inputUIDs[i])
-            Connection.activeConnections[inputUIDs[i]] = connection
-            
-            // If we have never seen this connection before, add it to the data model
-            if !Connection.connections.contains(connection) {
-                // We have to build a new connection to set the context
-                let newConnection = Connection(context: context)
-                newConnection.shallowCopy(connection: connection)
+            var connection = getConnection(inputNames[i], inputUIDs[i])
+            if connection == nil {
+                connection = Connection(context: context)
+                connection!.connected = true
+                connection!.id = inputUIDs[i]
+                connection!.name = inputNames[i]
+                connection!.visible = true
+                connection!.forgotten = false
                 
+                //print("\nappending \(connection!)")
+                Connection.connections.append(connection!)
+                
+            } else {
+                if connection!.forgotten {print("FORGOTTEN"); continue}
+                connection!.connected = true
             }
+            
+            Connection.activeConnections[connection!.id] = connection!
         }
         
-        // Finally, we set the `connected` properties of all the connections
+        // We set the `connected` properties of all the connections, and remove it if it has been forgotten
         for connection in Connection.connections {
+            if connection.forgotten {Connection.connections.removeAll(where: {$0 == connection})}
             connection.connected = (Connection.activeConnections[connection.id] != nil)
         }
-        
+    
         
         // Save the data
         do {
@@ -83,6 +90,13 @@ extension Connection {
             print("\nSaved preset\n")
         }
         catch {print("\n\(error)\n")}
+    }
+    
+    private static func getConnection(_ name: String, _ UID: MIDIUniqueID) -> Connection? {
+        for c in Connection.connections {
+            if c.name == name && c.id == UID {return c}
+        }
+        return nil
     }
     
     static func connectionNames() -> [String] {

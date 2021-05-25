@@ -46,5 +46,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return container
         }()
     
+    
+    var forgottenDevicesManager: ForgottenDevicesManager?
+    @IBAction func loadForgottenDevices(_ sender: Any) {
+        forgottenDevicesManager = ForgottenDevicesManager(context: persistentContainer.viewContext)
+    }
+    
 }
 
