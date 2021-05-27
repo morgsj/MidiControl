@@ -39,6 +39,7 @@ extension Connection {
      We keep track of this since presets may be made for devices that are not available all the time.
      */
     static var connections : [Connection] = []
+    static var visibleConnections : [Connection] = []
     
     /* This dictionary contains all the active connections */
     static var activeConnections : [MIDIUniqueID : Connection] = [:]
@@ -70,7 +71,7 @@ extension Connection {
                 Connection.connections.append(connection!)
                 
             } else {
-                if connection!.forgotten {print("FORGOTTEN"); continue}
+                if connection!.forgotten {continue}
                 connection!.connected = true
             }
             
@@ -79,17 +80,27 @@ extension Connection {
         
         // We set the `connected` properties of all the connections, and remove it if it has been forgotten
         for connection in Connection.connections {
-            if connection.forgotten {Connection.connections.removeAll(where: {$0 == connection})}
+            if connection.forgotten {
+                
+                // TODO: Remove duplicates
+//                matches = Connection.connections.filter(where: {$0 == connection})
+//                if matches.count > 1 {
+//                    for i in 1..<matches.count {
+//                        do {try context.delete(matches[i])} catch {fatalError()}
+//                    }
+//                }
+                
+                Connection.connections.removeAll(where: {$0 == connection})
+            } else {
+                if connection.visible {Connection.visibleConnections.append(connection)}
+            }
+            
             connection.connected = (Connection.activeConnections[connection.id] != nil)
+            
         }
-    
         
         // Save the data
-        do {
-            try context.save()
-            print("\nSaved preset\n")
-        }
-        catch {print("\n\(error)\n")}
+        do {try context.save()} catch {fatalError("\nCouldn't save: \(error)")}
     }
     
     private static func getConnection(_ name: String, _ UID: MIDIUniqueID) -> Connection? {
@@ -97,16 +108,6 @@ extension Connection {
             if c.name == name && c.id == UID {return c}
         }
         return nil
-    }
-    
-    static func connectionNames() -> [String] {
-        var connectionNames : [String] = []
-        
-        for connection in connections {
-            connectionNames.append(connection.name!)
-        }
-        
-        return connectionNames
     }
     
     static func sortConnections() {
@@ -117,13 +118,6 @@ extension Connection {
             else if (v.connected && !u.connected) {return false}
             else {return u.name! < v.name!}
         }
-    }
-    
-    static func getVisibleConnections() -> [Connection] {
-        sortConnections()
-        var i = 0
-        while (i < connections.count && connections[i].visible) {i += 1}
-        return Array(connections[0..<i])
     }
     
     static func ==(u: Connection, v: Connection) -> Bool {

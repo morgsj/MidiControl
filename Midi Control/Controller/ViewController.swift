@@ -33,13 +33,14 @@ class ViewController: NSViewController {
     @IBOutlet weak var movePresetUpButton: NSButton!
     @IBOutlet weak var movePresetDownButton: NSButton!
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         presetEditor = PresetEditorView(self)
         presetEditorContainer.addSubview(presetEditor!)
-        
+
 //        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Connection")
 //        let predicate = NSPredicate(format: "forgotten == 0")
 //        request.predicate = predicate
@@ -51,15 +52,25 @@ class ViewController: NSViewController {
 //            try context.execute(deleteRequest)
 //            print("deleted all connections")
 //        } catch {fatalError("Couldn't delete")}
+
         
-        fetchPresets()
-        updatePresetViews()
-        
+
         Connection.populateConnections(context: context)
+        fetchPresets()
+        //for preset in Preset.presets {preset.connection = nil}
         
+        presetViews = []
+        for preset in Preset.presets {
+            addPresetView(preset)
+        }
+        
+        updatePresetViews()
+
+        for pv in presetViews {pv.preset.connection = nil}
+
+
         manageDeviceButton.action = #selector(openDeviceWindow)
     }
-    
     
     private func newPreset() {
         // Create the new preset
@@ -87,14 +98,9 @@ class ViewController: NSViewController {
     public func fetchPresets() {
         // Fetch data from core data
         do {
-            let presets : [Preset] = try context.fetch(Preset.fetchRequest())
-            
-            presetViews = []
-            for preset in presets {
-                addPresetView(preset)
-            }
+            Preset.presets = try context.fetch(Preset.fetchRequest())
         } catch {
-            
+            fatalError("Couldn't fetch presets")
         }
     }
     

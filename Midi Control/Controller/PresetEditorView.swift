@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 @IBDesignable
-class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
+class PresetEditorView : NSView {
     
     /* Ensures the coordinate system has the origin at top right */
     override var isFlipped: Bool { return true }
@@ -44,7 +44,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var moveMacroDownButton: NSButton!
     
     /* The view controller that this is a subview of */
-    private let parent : ViewController
+    let parent : ViewController
     
     var macroEditor : MacroEditor?
     
@@ -66,16 +66,19 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
                 /* Set name */
                 presetNameField.stringValue = preset.name
                 
-                /* Populate combo box */
-                connectionField.removeAllItems()
-                connectionField.addItems(withObjectValues: Connection.getVisibleConnections())
-                
                 /* Set combo box value */
                 if let conn = preset.connection {
-                    if let index = Connection.connections.firstIndex(where: {$0 == conn}) {
-                        connectionField.selectItem(at: index)
+                    let index: Int? = Connection.visibleConnections.firstIndex(where: {$0 == conn})
+                    
+                    if index != nil {
+                        connectionField.stringValue = conn.name!
+                    } else {
+                        preset.connection = nil
+                        try! parent.context.save()
+                        connectionField.stringValue = ""
+                        connectionField.deselectItem(at: connectionField.indexOfSelectedItem)
                     }
-                }
+                } else {connectionField.stringValue = ""}
                 
                 /* Set enabled value */
                 enabledSwitch.state = preset.isEnabled ? .on : .off
@@ -109,6 +112,9 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
         macroTableView.doubleAction = #selector(doubleClicked)
         
         refreshConnections()
+        
+        connectionField.delegate = self
+        connectionField.dataSource = self
         
         /* TODO: Refactor into @IBActions to reduce volume of code */
         setNameButton.action     = #selector(setNameClicked)
@@ -187,8 +193,7 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     
     
     func refreshConnections() {
-        connectionField.removeAllItems()
-        connectionField.addItems(withObjectValues: Connection.connectionNames())
+        connectionField.reloadData()
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -205,25 +210,6 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
             }
         }
     }
-    
-    // MARK: TextFieldDelegate methods
-    func controlTextDidEndEditing(_ obj: Notification) {
-        if let name = preset?.name {
-            presetNameField.stringValue = name
-        }
-        presetNameField.layer!.backgroundColor = CGColor.white
-    }
-    
-    func controlTextDidBeginEditing(_ obj: Notification) {
-        print("BEGIN")
-        presetNameField.layer?.backgroundColor = CGColor(gray: 0, alpha: 1)
-    }
-    
-    func control(_ control: NSControl, textShouldBeginEditing fieldEditor: NSText) -> Bool {
-        print("SHOULD BEGIN")
-        return true
-    }
-    
     
     @objc func doubleClicked(_ sender: NSTableView) {
        
@@ -243,6 +229,19 @@ class PresetEditorView : NSView, NSTextFieldDelegate, NSComboBoxDelegate {
     
 }
 
+// MARK: TextFieldDelegate methods
+extension PresetEditorView: NSTextFieldDelegate {
+    func controlTextDidEndEditing(_ obj: Notification) {
+        setNameClicked()
+    }
+    
+    func controlTextDidBeginEditing(_ obj: Notification) {
+        presetNameField.layer?.backgroundColor = CGColor(gray: 0, alpha: 1)
+    }
+    
+}
+
+// MARK: TableViewDelegate methods
 extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
     
     fileprivate enum CellIdentifiers {
@@ -335,3 +334,35 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
     
     
 }
+
+// MARK: ComboBoxDelegate methods
+extension PresetEditorView : NSComboBoxDelegate, NSComboBoxDataSource {
+    func numberOfItems(in comboBox: NSComboBox) -> Int {
+        return Connection.visibleConnections.count
+    }
+    
+    func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
+        if index < 0 || index >= numberOfItems(in: comboBox) {return nil}
+        return Connection.visibleConnections[index].name as AnyObject
+    }
+    
+    func comboBoxSelectionDidChange(_ notification: Notification) {
+        let index = connectionField.indexOfSelectedItem
+        let connection = Connection.visibleConnections[index]
+        if let preset = preset {
+            
+            print("\nConnection: \(connection)\n")
+            preset.connection = connection
+            try! parent.context.save()
+            
+            for presetView in parent.presetViews {
+                if presetView.preset == preset {
+                    presetView.presetConnection.stringValue = connection.name!
+                    presetView.statusLabel.stringValue = connection.connected ? "Connected" : "Disconnected"
+                }
+            }
+            
+        }
+    }
+}
+    

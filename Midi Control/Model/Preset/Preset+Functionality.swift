@@ -9,6 +9,8 @@ import Cocoa
 
 extension Preset {
     
+    static var presets: [Preset] = []
+    
     convenience init(name: String) {
         self.init()
         self.name = name
@@ -19,14 +21,6 @@ extension Preset {
         self.name = name
         macros = []
         self.connection = connection
-    }
-    
-    func received(message : UMidiMessage) {
-        for macro in macros {
-            if let macro = macro as? Macro {
-                if macro.matches(message) {macro.execute()}
-            }
-        }
     }
     
 }

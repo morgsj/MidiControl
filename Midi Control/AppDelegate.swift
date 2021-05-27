@@ -7,7 +7,7 @@
 
 import Cocoa
 
-import AudioKit
+import AudioKit 
 import CoreMIDI
 
 @main
@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {        
         AppDelegate.midi.openInput()
-        AppDelegate.midi.addListener(MIDIReceiver())
+        AppDelegate.midi.addListener(MIDIReceiver(context: persistentContainer.viewContext))
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

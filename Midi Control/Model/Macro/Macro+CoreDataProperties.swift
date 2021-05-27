@@ -20,7 +20,7 @@ extension Macro {
     @NSManaged public var name: String
     @NSManaged public var enabled: Bool
     @NSManaged public var response: NSOrderedSet
-    @NSManaged public var trigger: NSOrderedSet
+    @NSManaged public var triggers: NSOrderedSet
 
 }
 

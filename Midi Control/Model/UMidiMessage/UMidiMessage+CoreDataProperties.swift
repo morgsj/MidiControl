@@ -20,6 +20,10 @@ extension UMidiMessage {
     @NSManaged public var noteID: Int16
     @NSManaged public var port: Int32
     @NSManaged public var value: Int16
+    @NSManaged public var messageType: Int16
+    
+    @NSManaged public var ignoresVelocity: Bool
+    @NSManaged public var ignoresChannel: Bool
 
 }
 
