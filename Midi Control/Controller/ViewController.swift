@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     private var selectedPresetView : PresetCompactView?
     
     /* The preset editor view */
-    private var presetEditor : PresetEditorView?
+    static var PresetEditor : PresetEditorView?
     
     /* The device manager pop up */
     private var deviceManager : DeviceManager?
@@ -38,8 +38,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        presetEditor = PresetEditorView(self)
-        presetEditorContainer.addSubview(presetEditor!)
+        ViewController.PresetEditor = PresetEditorView(self)
+        presetEditorContainer.addSubview(ViewController.PresetEditor!)
 
 //        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Connection")
 //        let predicate = NSPredicate(format: "forgotten == 0")
@@ -177,7 +177,7 @@ extension ViewController : PresetViewDelegate {
         
         print("\nPreset View Selected\n")
         selectedPresetView = pv
-        presetEditor!.preset = pv.preset
+        ViewController.PresetEditor!.preset = pv.preset
         
         removePresetButton.isEnabled = true
     }
@@ -188,6 +188,6 @@ extension ViewController : PresetViewDelegate {
     }
     
     func alteredPreset(_ pv: PresetCompactView) {
-        presetEditor?.preset = pv.preset
+        ViewController.PresetEditor?.preset = pv.preset
     }
 }

@@ -14,10 +14,20 @@ import CoreMIDI
 class AppDelegate: NSObject, NSApplicationDelegate {
    
     static let midi = MIDI()
+    static var midiListener: MIDIReceiver? = nil
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {        
+    static let midiMessageSemaphore = DispatchSemaphore(value: 1)
+    
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        let unusedMenu = NSMenu(title: "Unused")
+        NSApplication.shared.helpMenu = unusedMenu
+    }
+    
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         AppDelegate.midi.openInput()
-        AppDelegate.midi.addListener(MIDIReceiver(context: persistentContainer.viewContext))
+        
+        AppDelegate.midiListener = MIDIReceiver(context: self.persistentContainer.viewContext)
+        AppDelegate.midi.addListener(AppDelegate.midiListener!)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

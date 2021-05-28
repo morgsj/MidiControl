@@ -89,16 +89,22 @@ extension DeviceManager : NSTableViewDelegate {
             if let text = text {
                 cell.textField?.stringValue = text
             } else {
-                let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
-                checkbox.tag = row
-                if (cellIdentifier == CellIdentifiers.VisibleCell) {
-                    checkbox.state = item.visible ? .on : .off
-                    checkbox.isEnabled = true
-                } else {
-                    checkbox.state = item.connected ? .on : .off
-                    checkbox.isEnabled = false
+                var checkbox: NSButton? = cell.subviews.first as? NSButton
+                //let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
+                if checkbox == nil {
+                    checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
+                    cell.addSubview(checkbox!)
                 }
-                cell.addSubview(checkbox)
+                
+                checkbox!.tag = row
+                if (cellIdentifier == CellIdentifiers.VisibleCell) {
+                    checkbox!.state = item.visible ? .on : .off
+                    checkbox!.isEnabled = true
+                } else {
+                    checkbox!.state = item.connected ? .on : .off
+                    checkbox!.isEnabled = false
+                }
+                
             }
             
             return cell

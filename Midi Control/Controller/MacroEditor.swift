@@ -12,12 +12,57 @@ class MacroEditor: NSWindowController {
     var macro: Macro
     var macroTriggers: [[UMidiMessage]] = [[], []]
     
+    var awaitingMidiInput: Bool = false
+    var rowAwaitingMidiMessage: Int = -1
+    
+    var newMidiInput: MIDIReceiver.MIDIMessageTuple? {
+        get {return midiIn}
+        set {
+            midiIn = newValue
+            if newValue != nil && rowAwaitingMidiMessage >= 0 {
+                let label = tabView.selectedTabViewItem?.label
+                
+                if label == TabLabel.NoteTrigger && (newValue!.type == UMidiMessage.MessageType.NoteOnMessage || newValue!.type == UMidiMessage.MessageType.NoteOffMessage) {
+                    
+                    macroTriggers[0][rowAwaitingMidiMessage].messageType = newValue!.type
+                    macroTriggers[0][rowAwaitingMidiMessage].noteID = newValue!.data1
+                    macroTriggers[0][rowAwaitingMidiMessage].value = newValue!.data2
+                    macroTriggers[0][rowAwaitingMidiMessage].channel = newValue!.channel
+                    
+                    try! parent.parent.context.save()
+                    noteTriggerTableView.reloadData()
+                    
+                    rowAwaitingMidiMessage = -1
+                    awaitingMidiInput = false
+                } else if label == TabLabel.ControlTrigger && newValue!.type == UMidiMessage.MessageType.ControlMessage {
+                    
+                    macroTriggers[1][rowAwaitingMidiMessage].messageType = newValue!.type
+                    macroTriggers[1][rowAwaitingMidiMessage].noteID = newValue!.data1
+                    macroTriggers[1][rowAwaitingMidiMessage].value = newValue!.data2
+                    macroTriggers[1][rowAwaitingMidiMessage].channel = newValue!.channel
+                    
+                    try! parent.parent.context.save()
+                    controlTriggerTableView.reloadData()
+                                        
+                    rowAwaitingMidiMessage = -1
+                    awaitingMidiInput = false
+                }
+            }
+        }
+    }; var midiIn: MIDIReceiver.MIDIMessageTuple?
+    
     var parent : PresetEditorView
 
     @IBOutlet weak var nameField: NSTextField!
     @IBOutlet weak var enabledCheckbox: NSButton!
     
     @IBOutlet weak var tabView: NSTabView!
+    fileprivate enum TabLabel {
+        static let NoteTrigger = "Note Triggers"
+        static let ControlTrigger = "Control Triggers"
+    }
+    
+    
     @IBOutlet weak var noteTriggerTableView: NSTableView!
     @IBOutlet weak var controlTriggerTableView: NSTableView!
     
@@ -43,6 +88,9 @@ class MacroEditor: NSWindowController {
         noteTriggerTableView.dataSource = self
         controlTriggerTableView.delegate = self
         controlTriggerTableView.dataSource = self
+        
+        noteTriggerTableView.doubleAction = #selector(doubleClicked)
+        controlTriggerTableView.doubleAction = #selector(doubleClicked)
         
         // Separate macro triggers into separate lists for the two menus
         for trigger in macro.triggers {
@@ -77,9 +125,22 @@ class MacroEditor: NSWindowController {
     @objc func ignoreVelocityChange(_ sender: NSButton) {}
     @objc func ignoreChannelChange(_ sender: NSButton) {}
     
+    @objc func doubleClicked(_ tableView: NSTableView) {
+        
+        rowAwaitingMidiMessage = tableView.selectedRow
+        
+        let rowView: NSTableRowView = tableView.rowView(atRow: rowAwaitingMidiMessage, makeIfNecessary: false)!
+        
+        rowView.backgroundColor = NSColor(red: 153, green: 0, blue: 51, alpha: 1)
+        tableView.deselectAll(nil)
+        
+        awaitingMidiInput = true
+        
+    }
+    
     @IBAction func addTriggerButtonClicked(_ sender: Any) {
         if let label = tabView.selectedTabViewItem?.label {
-            if label == "Note Triggers" {
+            if label == TabLabel.NoteTrigger {
                 let newTrigger = UMidiMessage(context: parent.parent.context)
                 // TODO: parent.parent is messy
                 newTrigger.ignoresVelocity = true; newTrigger.ignoresChannel = true;
@@ -90,9 +151,8 @@ class MacroEditor: NSWindowController {
                 mutableTriggers.append(newTrigger)
                 macro.triggers = NSOrderedSet(array: mutableTriggers)
                 try! parent.parent.context.save()
-                print("saved")
                 
-            } else if label == "Control Triggers" {
+            } else if label == TabLabel.ControlTrigger {
                 let newTrigger = UMidiMessage(context: parent.parent.context)
                 newTrigger.ignoresChannel = true;
                 macroTriggers[1].append(newTrigger)
@@ -102,12 +162,50 @@ class MacroEditor: NSWindowController {
                 mutableTriggers.append(newTrigger)
                 macro.triggers = NSOrderedSet(array: mutableTriggers)
                 try! parent.parent.context.save()
-                print("saved")
                 
             }
         }
         
     }
+    
+    @IBAction func removeTriggerButtonClicked(_ sender: Any) {
+        let noteTriggerTable: Bool = tabView.selectedTabViewItem?.label == TabLabel.NoteTrigger
+        let row: Int!
+        
+        if noteTriggerTable {
+            row = noteTriggerTableView.selectedRow
+            noteTriggerTableView.removeRows(at: IndexSet(integer:row), withAnimation: NSTableView.AnimationOptions())
+            removeTriggerButton.isEnabled = false
+            
+            let trigger = macroTriggers[0][row]
+            macroTriggers[0].remove(at: row)
+            parent.parent.context.delete(trigger)
+            
+            var triggerArray = macro.triggers.array
+            triggerArray.removeAll(where: {$0 as! UMidiMessage == trigger})
+            macro.triggers = NSOrderedSet(array: triggerArray)
+            
+            try! parent.parent.context.save()
+            print("saved")
+        } else {
+            row = controlTriggerTableView.selectedRow
+            noteTriggerTableView.removeRows(at: IndexSet(integer:row), withAnimation: NSTableView.AnimationOptions())
+            removeTriggerButton.isEnabled = false
+            
+            let trigger = macroTriggers[1][row]
+            macroTriggers[1].remove(at: row)
+            parent.parent.context.delete(trigger)
+            
+            var triggerArray = macro.triggers.array
+            triggerArray.removeAll(where: {$0 as! UMidiMessage == trigger})
+            macro.triggers = NSOrderedSet(array: triggerArray)
+            
+            try! parent.parent.context.save()
+        }
+        
+        
+    }
+    
 }
 
 // MARK: TableViewDelegate methods
@@ -147,7 +245,7 @@ extension MacroEditor: NSTableViewDelegate, NSTableViewDataSource {
         
         if tableColumn == tableView.tableColumns[0] {
             if noteTriggerTable {
-                text = String(trigger.messageType)
+                text = String(trigger.messageType == UMidiMessage.MessageType.NoteOnMessage ? "Note On" : "Note Off")
                 cellIdentifier = CellIdentifiers.TypeCell
             } else {
                 text = String(trigger.noteID)
@@ -216,6 +314,8 @@ extension MacroEditor: NSTableViewDelegate, NSTableViewDataSource {
         
     }
     
-    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        removeTriggerButton.isEnabled = true
+    }
     
 }

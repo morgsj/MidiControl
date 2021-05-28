@@ -38,6 +38,7 @@ extension Connection {
      This contains all the connections that have ever been made (and saved into the data model).
      We keep track of this since presets may be made for devices that are not available all the time.
      */
+
     static var connections : [Connection] = []
     static var visibleConnections : [Connection] = []
     
@@ -48,6 +49,10 @@ extension Connection {
         
         // First we get all the connections from the data model
         do {Connection.connections = try context.fetch(Connection.fetchRequest())} catch {fatalError("Couldn't fetch forgotten devices: \(error)")}
+        
+        for connection in Connection.connections {
+            connection.connected = false
+        }
         
         // Now we get all of the active connections
         let inputNames : [String] = AppDelegate.midi.inputNames
@@ -60,6 +65,7 @@ extension Connection {
         for i in 0..<inputNames.count {
             var connection = getConnection(inputNames[i], inputUIDs[i])
             if connection == nil {
+                // Create new connection for this device
                 connection = Connection(context: context)
                 connection!.connected = true
                 connection!.id = inputUIDs[i]
@@ -67,7 +73,6 @@ extension Connection {
                 connection!.visible = true
                 connection!.forgotten = false
                 
-                //print("\nappending \(connection!)")
                 Connection.connections.append(connection!)
                 
             } else {
@@ -108,16 +113,6 @@ extension Connection {
             if c.name == name && c.id == UID {return c}
         }
         return nil
-    }
-    
-    static func sortConnections() {
-        connections.sort { (u, v) -> Bool in
-            if      (u.visible && !v.visible) {return true}
-            else if (v.visible && !u.visible) {return false}
-            else if (u.connected && !v.connected) {return true}
-            else if (v.connected && !u.connected) {return false}
-            else {return u.name! < v.name!}
-        }
     }
     
     static func ==(u: Connection, v: Connection) -> Bool {

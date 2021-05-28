@@ -46,7 +46,7 @@ class PresetEditorView : NSView {
     /* The view controller that this is a subview of */
     let parent : ViewController
     
-    var macroEditor : MacroEditor?
+    static var macroEditor : MacroEditor?
     
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
 
@@ -98,8 +98,7 @@ class PresetEditorView : NSView {
         let contentFrame = NSMakeRect(0, 0, PresetEditorView.WIDTH, PresetEditorView.HEIGHT)
         self.contentView.frame = contentFrame
         self.addSubview(self.contentView)
-        
-        
+           
         presetNameField.delegate = self
         connectionField.delegate = self
         
@@ -217,12 +216,12 @@ class PresetEditorView : NSView {
         let selectedRow = macroTableView.selectedRow
         
         if selectedRow != -1 && preset != nil {
-            if macroEditor != nil {
-                macroEditor!.close()
+            if PresetEditorView.macroEditor != nil {
+                PresetEditorView.macroEditor!.close()
             }
             
-            macroEditor = MacroEditor(macro: preset!.macros[selectedRow] as! Macro, parent: self)
-            macroEditor?.showWindow(self)
+            PresetEditorView.macroEditor = MacroEditor(macro: preset!.macros[selectedRow] as! Macro, parent: self)
+            PresetEditorView.macroEditor?.showWindow(self)
             
         }
     }
