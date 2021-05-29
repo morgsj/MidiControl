@@ -36,6 +36,7 @@
 		67F27A7A25FABFB200FD78EC /* Connection+Functionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A7925FABFB200FD78EC /* Connection+Functionality.swift */; };
 		67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */; };
 		67F27A8925FAC1BD00FD78EC /* PresetCompactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */; };
+		9004C36026625C0900B27B79 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9004C35F26625C0900B27B79 /* .travis.yml */; };
 		903D5091265BE9DC00B1C0DB /* ForgottenDevicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903D508F265BE9DC00B1C0DB /* ForgottenDevicesManager.swift */; };
 		903D5092265BE9DC00B1C0DB /* ForgottenDevicesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 903D5090265BE9DC00B1C0DB /* ForgottenDevicesManager.xib */; };
 		904C1B9D2651133200C28B01 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 904C1B9C2651133200C28B01 /* AudioKit */; };
@@ -77,6 +78,7 @@
 		67F27A7925FABFB200FD78EC /* Connection+Functionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+Functionality.swift"; sourceTree = "<group>"; };
 		67F27A8525FAC1AF00FD78EC /* PresetCompactView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCompactView.xib; sourceTree = "<group>"; };
 		67F27A8825FAC1BD00FD78EC /* PresetCompactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCompactView.swift; sourceTree = "<group>"; };
+		9004C35F26625C0900B27B79 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .travis.yml; sourceTree = "<group>"; };
 		903D508F265BE9DC00B1C0DB /* ForgottenDevicesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgottenDevicesManager.swift; sourceTree = "<group>"; };
 		903D5090265BE9DC00B1C0DB /* ForgottenDevicesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ForgottenDevicesManager.xib; sourceTree = "<group>"; };
 		904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIReceiver.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				67311C4E26345410001DBF67 /* .gitignore */,
+				9004C35F26625C0900B27B79 /* .travis.yml */,
 				67F27A6125FAA0D800FD78EC /* Midi Control */,
 				67F27A6025FAA0D800FD78EC /* Products */,
 			);
@@ -293,6 +296,7 @@
 				67F27A8625FAC1AF00FD78EC /* PresetCompactView.xib in Resources */,
 				67CEB8B1265A946E00760D11 /* MacroEditor.xib in Resources */,
 				903D5092265BE9DC00B1C0DB /* ForgottenDevicesManager.xib in Resources */,
+				9004C36026625C0900B27B79 /* .travis.yml in Resources */,
 				67311C4F26345410001DBF67 /* .gitignore in Resources */,
 				67F27A6725FAA0DA00FD78EC /* Assets.xcassets in Resources */,
 				67F27A6A25FAA0DA00FD78EC /* Main.storyboard in Resources */,
