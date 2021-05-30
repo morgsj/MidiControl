@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/morgsj/MidiControl.svg?branch=main)](https://travis-ci.org/morgsj/MidiControl)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/morgsj/MidiControl/issues)
 [![contributions welcome](https://img.shields.io/badge/version-WIP-red.svg?style=flat)](https://github.com/morgsj/MidiControl/issues)
 # Midi Control (work in progress)
