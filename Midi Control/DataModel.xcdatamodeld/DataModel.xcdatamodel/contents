@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Connection" representedClassName="Connection" syncable="YES">
         <attribute name="connected" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="forgotten" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -9,7 +9,12 @@
         <relationship name="presets" toMany="YES" deletionRule="Nullify" destinationEntity="Preset"/>
     </entity>
     <entity name="KeyboardShortcut" representedClassName="KeyboardShortcut" syncable="YES">
-        <attribute name="keyCodes" attributeType="Transformable"/>
+        <attribute name="cmd" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="ctrl" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="fn" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="option" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="shift" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="Macro" representedClassName="Macro" syncable="YES">
         <attribute name="enabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -35,7 +40,7 @@
     </entity>
     <elements>
         <element name="Connection" positionX="0" positionY="72" width="128" height="119"/>
-        <element name="KeyboardShortcut" positionX="27" positionY="126" width="128" height="44"/>
+        <element name="KeyboardShortcut" positionX="27" positionY="126" width="128" height="119"/>
         <element name="Macro" positionX="54" positionY="135" width="128" height="104"/>
         <element name="Preset" positionX="9" positionY="99" width="128" height="89"/>
         <element name="UMidiMessage" positionX="-36" positionY="9" width="128" height="134"/>

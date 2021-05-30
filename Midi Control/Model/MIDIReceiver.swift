@@ -43,7 +43,6 @@ class MIDIReceiver : MIDIListener {
                             guard let macro = macro as? Macro else {fatalError("Couldn't cast to Macro")}
                             
                             if macro.matches(noteID: noteNumber, value: velocity, channel: channel, type: Int(UMidiMessage.MessageType.NoteOnMessage)) {
-                                print("MATCH")
                                 macro.execute()
                             }
                         }

@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Carbon
 
 class MacroEditor: NSWindowController {
     
@@ -66,7 +67,7 @@ class MacroEditor: NSWindowController {
     @IBOutlet weak var noteTriggerTableView: NSTableView!
     @IBOutlet weak var controlTriggerTableView: NSTableView!
     
-    @IBOutlet weak var responseKey: NSTextField!
+    @IBOutlet weak var responseKeyComboBox: NSComboBox!
     @IBOutlet weak var shiftCheckbox: NSButton!
     @IBOutlet weak var fnCheckbox: NSButton!
     @IBOutlet weak var ctrlCheckbox: NSButton!
@@ -88,6 +89,27 @@ class MacroEditor: NSWindowController {
         noteTriggerTableView.dataSource = self
         controlTriggerTableView.delegate = self
         controlTriggerTableView.dataSource = self
+        
+        responseKeyComboBox.delegate = self
+        responseKeyComboBox.dataSource = self
+        responseKeyComboBox.reloadData()
+        
+        let response: KeyboardShortcut!
+        if macro.response.count > 0 {
+            response = macro.response.array[0] as? KeyboardShortcut
+        } else {
+            response = KeyboardShortcut(context: parent.parent.context)
+            macro.response = NSOrderedSet(array: [response as Any])
+        }
+        responseKeyComboBox.selectItem(at: Int(response.key))
+        shiftCheckbox.state = response.shift ? .on : .off
+        fnCheckbox.state = response.fn ? .on : .off
+        ctrlCheckbox.state = response.ctrl ? .on : .off
+        optionCheckbox.state = response.option ? .on : .off
+        cmdCheckbox.state = response.cmd ? .on : .off
+        
+        
+        if (macro.response.count > 0) {responseKeyComboBox.selectItem(at: Int((macro.response.array[0] as! KeyboardShortcut).key))}
         
         noteTriggerTableView.doubleAction = #selector(doubleClicked)
         controlTriggerTableView.doubleAction = #selector(doubleClicked)
@@ -206,6 +228,51 @@ class MacroEditor: NSWindowController {
         
     }
     
+    @IBAction func shiftCheckboxClicked(_ sender: Any) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            response.shift = shiftCheckbox.state == .on
+            try! parent.parent.context.save()
+        }
+    }
+    
+    @IBAction func fnCheckboxClicked(_ sender: Any) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            response.fn = fnCheckbox.state == .on
+            try! parent.parent.context.save()
+        }
+    }
+    
+    @IBAction func ctrlCheckboxClicked(_ sender: Any) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            response.ctrl = ctrlCheckbox.state == .on
+            try! parent.parent.context.save()
+        }
+    }
+    
+    @IBAction func optionCheckboxClicked(_ sender: Any) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            response.option = optionCheckbox.state == .on
+            try! parent.parent.context.save()
+        }
+    }
+    
+    @IBAction func cmdCheckboxClicked(_ sender: Any) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            response.cmd = cmdCheckbox.state == .on
+            try! parent.parent.context.save()
+        }
+    }
+    
+    @IBAction func exitButtonClicked(_ sender: Any) {
+        self.close()
+    }
+    
+    
 }
 
 // MARK: TableViewDelegate methods
@@ -317,5 +384,65 @@ extension MacroEditor: NSTableViewDelegate, NSTableViewDataSource {
     func tableViewSelectionDidChange(_ notification: Notification) {
         removeTriggerButton.isEnabled = true
     }
+    
+}
+
+extension MacroEditor: NSComboBoxDelegate, NSComboBoxDataSource {
+    
+    private static let NUM_KEYS = 125
+    
+    
+    func numberOfItems(in comboBox: NSComboBox) -> Int {
+        return MacroEditor.NUM_KEYS
+    }
+    
+    func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
+        return index as AnyObject
+    }
+    
+    func comboBoxSelectionDidChange(_ notification: Notification) {
+        if macro.response.count > 0 {
+            let response = macro.response.array[0] as! KeyboardShortcut
+            
+            response.key = Int16(responseKeyComboBox.indexOfSelectedItem)
+            macro.response = NSOrderedSet(array: [response as Any])
+            
+            try! parent.parent.context.save()
+        }
+    }
+    
+    //TODO
+    private func keyName(scanCode: UInt16) -> String? {
+        return String(scanCode)
+//        let maxNameLength = 4
+//        var nameBuffer = [UniChar](repeating: 0, count : maxNameLength)
+//        var nameLength = 0
+//
+//        let modifierKeys = UInt32(alphaLock >> 8) & 0xFF // Caps Lock
+//        var deadKeys: UInt32 = 0
+//        let keyboardType = UInt32(LMGetKbdType())
+//
+//        let source = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
+//        guard let ptr = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData) else {
+//            NSLog("Could not get keyboard layout data")
+//            return nil
+//        }
+//        let layoutData = Unmanaged<CFData>.fromOpaque(ptr).takeUnretainedValue() as Data
+//        let osStatus = layoutData.withUnsafeBytes {
+//            UCKeyTranslate($0.bindMemory(to: UCKeyboardLayout.self).baseAddress, scanCode, UInt16(kUCKeyActionDown),
+//                           modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask),
+//                           &deadKeys, maxNameLength, &nameLength, &nameBuffer)
+//        }
+//        guard osStatus == noErr else {
+//            NSLog("Code: 0x%04X  Status: %+i", scanCode, osStatus);
+//            return nil
+//        }
+//
+//        return  String(utf16CodeUnits: nameBuffer, count: nameLength)
+    }
+    
+    //MARK: Modifier key methods
+    
+    
     
 }

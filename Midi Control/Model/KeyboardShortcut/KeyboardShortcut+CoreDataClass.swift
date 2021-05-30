@@ -11,5 +11,5 @@ import CoreData
 
 @objc(KeyboardShortcut)
 public class KeyboardShortcut: NSManagedObject {
-
+    
 }
