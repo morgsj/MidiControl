@@ -68,7 +68,7 @@ class PresetEditorView : NSView {
                 
                 /* Set combo box value */
                 if let conn = preset.connection {
-                    let index: Int? = Connection.visibleConnections.firstIndex(where: {$0 == conn})
+                    let index: Int? = Connection.connectionWhitelist().firstIndex(where: {$0 == conn})
                     
                     if index != nil {
                         connectionField.stringValue = conn.name!
@@ -337,17 +337,17 @@ extension PresetEditorView : NSTableViewDelegate, NSTableViewDataSource {
 // MARK: ComboBoxDelegate methods
 extension PresetEditorView : NSComboBoxDelegate, NSComboBoxDataSource {
     func numberOfItems(in comboBox: NSComboBox) -> Int {
-        return Connection.visibleConnections.count
+        return Connection.connectionWhitelist().count
     }
     
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
         if index < 0 || index >= numberOfItems(in: comboBox) {return nil}
-        return Connection.visibleConnections[index].name as AnyObject
+        return Connection.connectionWhitelist()[index].name as AnyObject
     }
     
     func comboBoxSelectionDidChange(_ notification: Notification) {
         let index = connectionField.indexOfSelectedItem
-        let connection = Connection.visibleConnections[index]
+        let connection = Connection.connectionWhitelist()[index]
         if let preset = preset {
             
             print("\nConnection: \(connection)\n")

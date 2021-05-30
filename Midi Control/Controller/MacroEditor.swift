@@ -99,6 +99,7 @@ class MacroEditor: NSWindowController {
             response = macro.response.array[0] as? KeyboardShortcut
         } else {
             response = KeyboardShortcut(context: parent.parent.context)
+            response.shift = false; response.fn = false; response.ctrl = false; response.option = false; response.cmd = false
             macro.response = NSOrderedSet(array: [response as Any])
         }
         responseKeyComboBox.selectItem(at: Int(response.key))
@@ -107,9 +108,6 @@ class MacroEditor: NSWindowController {
         ctrlCheckbox.state = response.ctrl ? .on : .off
         optionCheckbox.state = response.option ? .on : .off
         cmdCheckbox.state = response.cmd ? .on : .off
-        
-        
-        if (macro.response.count > 0) {responseKeyComboBox.selectItem(at: Int((macro.response.array[0] as! KeyboardShortcut).key))}
         
         noteTriggerTableView.doubleAction = #selector(doubleClicked)
         controlTriggerTableView.doubleAction = #selector(doubleClicked)
@@ -361,19 +359,26 @@ extension MacroEditor: NSTableViewDelegate, NSTableViewDataSource {
                 cell.textField?.stringValue = text
             } else {
                 var checkbox: NSButton!
+                
+                if cell.subviews.first == nil {
+                    if cellIdentifier == CellIdentifiers.IgnoreVelocityCell {
+                        checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(ignoreVelocityChange))
+                    } else { // cellIdentifier == CellIdentifiers.IgnoreChannelCell
+                        checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(ignoreChannelChange))
+                    }
+                    cell.addSubview(checkbox)
+                } else {checkbox = cell.subviews.first! as? NSButton}
+                
                 if cellIdentifier == CellIdentifiers.IgnoreVelocityCell {
-                    checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(ignoreVelocityChange))
                     checkbox.state = trigger.ignoresVelocity ? .on : .off
                     checkbox.isEnabled = true
                     checkbox.tag = row
                 } else { // cellIdentifier == CellIdentifiers.IgnoreChannelCell
-                    checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(ignoreChannelChange))
                     checkbox.state = trigger.ignoresChannel ? .on : .off
                     checkbox.isEnabled = true
                     checkbox.tag = row
                 }
                 
-                cell.addSubview(checkbox)
             }
             
             return cell
@@ -440,9 +445,5 @@ extension MacroEditor: NSComboBoxDelegate, NSComboBoxDataSource {
 //
 //        return  String(utf16CodeUnits: nameBuffer, count: nameLength)
     }
-    
-    //MARK: Modifier key methods
-    
-    
     
 }

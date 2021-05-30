@@ -7,7 +7,7 @@
 
 import Foundation
 import Cocoa
-
+import Carbon
 
 extension KeyboardShortcut {
     
@@ -15,27 +15,27 @@ extension KeyboardShortcut {
         print("EXECUTE")
         
         let src = CGEventSource(stateID: CGEventSourceStateID.hidSystemState)
-
         
-        let shiftd = CGEvent(keyboardEventSource: src, virtualKey: 57, keyDown: true)
-        let shiftu = CGEvent(keyboardEventSource: src, virtualKey: 57, keyDown: false)
+        let shiftd = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Shift), keyDown: true)
+        let shiftu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Shift), keyDown: false)
         
-        let fnd = CGEvent(keyboardEventSource: src, virtualKey: 63, keyDown: true)
-        let fnu = CGEvent(keyboardEventSource: src, virtualKey: 63, keyDown: false)
+        let fnd = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Function), keyDown: true)
+        let fnu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Function), keyDown: false)
         
-        let ctrld = CGEvent(keyboardEventSource: src, virtualKey: 59, keyDown: true)
-        let ctrlu = CGEvent(keyboardEventSource: src, virtualKey: 59, keyDown: false)
+        let ctrld = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Control), keyDown: true)
+        let ctrlu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Control), keyDown: false)
         
-        let optiond = CGEvent(keyboardEventSource: src, virtualKey: 59, keyDown: true)
-        let optionu = CGEvent(keyboardEventSource: src, virtualKey: 59, keyDown: false)
+        let optiond = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Option), keyDown: true)
+        let optionu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Option), keyDown: false)
         
-        let cmdd = CGEvent(keyboardEventSource: src, virtualKey: 55, keyDown: true)
-        let cmdu = CGEvent(keyboardEventSource: src, virtualKey: 55, keyDown: false)
+        let cmdd = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Command), keyDown: true)
+        let cmdu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_Command), keyDown: false)
         
         let keyd = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(key), keyDown: true)
         let keyu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(key), keyDown: false)
 
-        keyd?.flags = CGEventFlags.maskCommand;
+        keyd?.flags = .maskControl
+        keyu?.flags = .maskControl
 
         let loc = CGEventTapLocation.cghidEventTap
 

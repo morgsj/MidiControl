@@ -24,11 +24,11 @@ class MIDIReceiver : MIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         
         if let macroEditor = PresetEditorView.macroEditor {
-            if macroEditor.awaitingMidiInput && ViewController.PresetEditor!.preset?.connection?.id == portID {
+            if macroEditor.awaitingMidiInput && ViewController.PresetEditor!.preset?.connection != nil && ViewController.PresetEditor!.preset?.connection?.id == portID {
                 DispatchQueue.main.async {
                     macroEditor.newMidiInput = (UMidiMessage.MessageType.NoteOnMessage, Int16(noteNumber), Int16(velocity), Int16(channel))
                 }
-                
+                return
             }
         }
         
@@ -59,10 +59,11 @@ class MIDIReceiver : MIDIListener {
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         
         if let macroEditor = PresetEditorView.macroEditor {
-            if macroEditor.awaitingMidiInput {
+            if macroEditor.awaitingMidiInput && ViewController.PresetEditor!.preset?.connection != nil && ViewController.PresetEditor!.preset?.connection?.id == portID {
                 DispatchQueue.main.async {
                     macroEditor.newMidiInput = (UMidiMessage.MessageType.NoteOffMessage, Int16(noteNumber), Int16(velocity), Int16(channel))
                 }
+                return
             }
         }
         
@@ -93,20 +94,33 @@ class MIDIReceiver : MIDIListener {
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel, portID: MIDIUniqueID?, timeStamp: MIDITimeStamp?) {
         
         if let macroEditor = PresetEditorView.macroEditor {
-            if macroEditor.awaitingMidiInput {
+            if macroEditor.awaitingMidiInput && ViewController.PresetEditor!.preset?.connection != nil && ViewController.PresetEditor!.preset?.connection?.id == portID {
                 DispatchQueue.main.async {
                     macroEditor.newMidiInput = (UMidiMessage.MessageType.ControlMessage, Int16(controller), Int16(value), Int16(channel))
                 }
+                return
             }
         }
         
         if let portID = portID {
-            let message = UMidiMessage(context: context)
-            message.messageType = UMidiMessage.MessageType.NoteOnMessage
-            message.noteID = Int16(controller)
-            message.value = Int16(value)
-            message.channel = Int16(channel)
-            message.port = portID
+            
+            if let connection = Connection.activeConnections[portID] {
+                for preset in Preset.presets {
+                    
+                    if preset.connection == connection {
+                        
+                        for macro in preset.macros {
+                            guard let macro = macro as? Macro else {fatalError("Couldn't cast to Macro")}
+                            
+                            if macro.matches(noteID: controller, value: value, channel: channel, type: Int(UMidiMessage.MessageType.ControlMessage)) {
+                                macro.execute()
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
             
             print(#function)
         }

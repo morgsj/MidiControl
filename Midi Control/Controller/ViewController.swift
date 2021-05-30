@@ -33,8 +33,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var movePresetUpButton: NSButton!
     @IBOutlet weak var movePresetDownButton: NSButton!
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +53,7 @@ class ViewController: NSViewController {
 
         
 
-        Connection.populateConnections(context: context)
+        Connection.refreshConnections(context: context, shouldFetch: true)
         fetchPresets()
         //for preset in Preset.presets {preset.connection = nil}
         
@@ -68,8 +66,19 @@ class ViewController: NSViewController {
 
         for pv in presetViews {pv.preset.connection = nil}
 
-
         manageDeviceButton.action = #selector(openDeviceWindow)
+        
+        let connectionChecker = Thread {
+            while (true) {
+                DispatchQueue.main.async {
+                    Connection.refreshConnections(context: self.context, shouldFetch: false)
+                    
+                    self.deviceManager?.deviceTable?.reloadData()
+                }
+                sleep(1)
+            }
+        }
+        connectionChecker.start()
     }
     
     private func newPreset() {

@@ -31,9 +31,9 @@ class DeviceManager : NSWindowController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO: still doesn't quite work?
+    
     @IBAction func refreshDevices(_ sender: NSButton?) {
-        Connection.populateConnections(context: parent.context)
+        Connection.refreshConnections(context: parent.context, shouldFetch: true)
         deviceTable.reloadData()
     }
 
@@ -41,13 +41,10 @@ class DeviceManager : NSWindowController {
         let row = deviceTable.selectedRow
         if (row != -1) {
             
-            let conn = Connection.connections[row]
+            let conn = Connection.connectionWhitelist()[row]
             conn.forgotten = true
-            Connection.connections[row] = conn
             
-            do {try parent.context.save(); print("saved")} catch {fatalError("Couldn't save")}
-            
-            Connection.populateConnections(context: parent.context)
+            Connection.refreshConnections(context: parent.context, shouldFetch: false)
             deviceTable.removeRows(at: IndexSet(integer: row), withAnimation: NSTableView.AnimationOptions())
             
         }
@@ -57,14 +54,13 @@ class DeviceManager : NSWindowController {
 
 extension DeviceManager : NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return Connection.connections.count
+        return Connection.connectionWhitelist().count
     }
 }
 
 extension DeviceManager : NSTableViewDelegate {
     fileprivate enum CellIdentifiers {
         static let DeviceCell = "Device"
-        static let VisibleCell = "Visible"
         static let ConnectedCell = "Connected"
     }
     
@@ -72,14 +68,12 @@ extension DeviceManager : NSTableViewDelegate {
         var text: String?
         var cellIdentifier: String = ""
         
-        let item = Connection.connections[row]
+        let item = Connection.connectionWhitelist()[row]
         
         if tableColumn == deviceTable.tableColumns[0] {
             text = item.name
             cellIdentifier = CellIdentifiers.DeviceCell
         } else if tableColumn == deviceTable.tableColumns[1] {
-            cellIdentifier = CellIdentifiers.VisibleCell
-        } else if tableColumn == deviceTable.tableColumns[2] {
             cellIdentifier = CellIdentifiers.ConnectedCell
         }
         
@@ -92,18 +86,14 @@ extension DeviceManager : NSTableViewDelegate {
                 var checkbox: NSButton? = cell.subviews.first as? NSButton
                 //let checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
                 if checkbox == nil {
-                    checkbox = NSButton(checkboxWithTitle: "", target: self, action: #selector(visibilityChange))
+                    checkbox = NSButton(checkboxWithTitle: "", target: self, action: nil)
                     cell.addSubview(checkbox!)
                 }
                 
                 checkbox!.tag = row
-                if (cellIdentifier == CellIdentifiers.VisibleCell) {
-                    checkbox!.state = item.visible ? .on : .off
-                    checkbox!.isEnabled = true
-                } else {
-                    checkbox!.state = item.connected ? .on : .off
-                    checkbox!.isEnabled = false
-                }
+                checkbox!.state = item.connected ? .on : .off
+                checkbox!.isEnabled = false
+                
                 
             }
             
@@ -111,12 +101,6 @@ extension DeviceManager : NSTableViewDelegate {
         }
         return nil
       
-    }
-    
-    @objc func visibilityChange(sender: NSButton) {
-        Connection.connections[sender.tag].visible = (sender.state == .on)
-        
-        parent.updatePresetViews()
     }
     
 }
