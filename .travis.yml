@@ -1,1 +1,4 @@
 os: osx
+xcode_project: Midi Control.xcodeproj # path to your xcodeproj folder
+xcode_scheme: Midi Control Tests
+xcode_destination: platform=macOS
