@@ -102,7 +102,9 @@ class MacroEditor: NSWindowController {
             response.shift = false; response.fn = false; response.ctrl = false; response.option = false; response.cmd = false
             macro.response = NSOrderedSet(array: [response as Any])
         }
-        responseKeyComboBox.selectItem(at: Int(response.key))
+        
+        responseKeyComboBox.stringValue = KeyboardShortcut.keyDescription(Int(response.key))
+        
         shiftCheckbox.state = response.shift ? .on : .off
         fnCheckbox.state = response.fn ? .on : .off
         ctrlCheckbox.state = response.ctrl ? .on : .off
@@ -142,6 +144,12 @@ class MacroEditor: NSWindowController {
 
     }
     
+    @IBAction func changeName(_ sender: Any) {
+        let newName = (sender as! NSTextField).stringValue
+        macro.name = newName
+        parent.macroTableView.reloadData()
+    }
+    
     @objc func ignoreVelocityChange(_ sender: NSButton) {}
     @objc func ignoreChannelChange(_ sender: NSButton) {}
     
@@ -157,6 +165,8 @@ class MacroEditor: NSWindowController {
         awaitingMidiInput = true
         
     }
+    
+    
     
     @IBAction func addTriggerButtonClicked(_ sender: Any) {
         if let label = tabView.selectedTabViewItem?.label {
@@ -265,6 +275,13 @@ class MacroEditor: NSWindowController {
             try! parent.parent.context.save()
         }
     }
+    
+    @IBAction func enabledCheckboxClicked(_ sender: Any) {
+        macro.enabled = (sender as! NSButton).state == .on
+        try! parent.parent.context.save()
+        parent.macroTableView.reloadData()
+    }
+    
     
     @IBAction func exitButtonClicked(_ sender: Any) {
         self.close()
@@ -394,56 +411,24 @@ extension MacroEditor: NSTableViewDelegate, NSTableViewDataSource {
 
 extension MacroEditor: NSComboBoxDelegate, NSComboBoxDataSource {
     
-    private static let NUM_KEYS = 125
-    
-    
     func numberOfItems(in comboBox: NSComboBox) -> Int {
-        return MacroEditor.NUM_KEYS
+        return KeyboardShortcut.KEYS.count
     }
     
     func comboBox(_ comboBox: NSComboBox, objectValueForItemAt index: Int) -> Any? {
-        return index as AnyObject
+        let key = KeyboardShortcut.KEYS[index]
+        return KeyboardShortcut.keyDescription(key) as AnyObject
     }
     
     func comboBoxSelectionDidChange(_ notification: Notification) {
         if macro.response.count > 0 {
             let response = macro.response.array[0] as! KeyboardShortcut
             
-            response.key = Int16(responseKeyComboBox.indexOfSelectedItem)
+            response.key = Int16(KeyboardShortcut.KEYS[responseKeyComboBox.indexOfSelectedItem])
             macro.response = NSOrderedSet(array: [response as Any])
             
             try! parent.parent.context.save()
         }
-    }
-    
-    //TODO
-    private func keyName(scanCode: UInt16) -> String? {
-        return String(scanCode)
-//        let maxNameLength = 4
-//        var nameBuffer = [UniChar](repeating: 0, count : maxNameLength)
-//        var nameLength = 0
-//
-//        let modifierKeys = UInt32(alphaLock >> 8) & 0xFF // Caps Lock
-//        var deadKeys: UInt32 = 0
-//        let keyboardType = UInt32(LMGetKbdType())
-//
-//        let source = TISCopyCurrentKeyboardLayoutInputSource().takeRetainedValue()
-//        guard let ptr = TISGetInputSourceProperty(source, kTISPropertyUnicodeKeyLayoutData) else {
-//            NSLog("Could not get keyboard layout data")
-//            return nil
-//        }
-//        let layoutData = Unmanaged<CFData>.fromOpaque(ptr).takeUnretainedValue() as Data
-//        let osStatus = layoutData.withUnsafeBytes {
-//            UCKeyTranslate($0.bindMemory(to: UCKeyboardLayout.self).baseAddress, scanCode, UInt16(kUCKeyActionDown),
-//                           modifierKeys, keyboardType, UInt32(kUCKeyTranslateNoDeadKeysMask),
-//                           &deadKeys, maxNameLength, &nameLength, &nameBuffer)
-//        }
-//        guard osStatus == noErr else {
-//            NSLog("Code: 0x%04X  Status: %+i", scanCode, osStatus);
-//            return nil
-//        }
-//
-//        return  String(utf16CodeUnits: nameBuffer, count: nameLength)
     }
     
 }

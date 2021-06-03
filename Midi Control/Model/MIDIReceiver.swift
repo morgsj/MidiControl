@@ -36,8 +36,8 @@ class MIDIReceiver : MIDIListener {
             
             if let connection = Connection.activeConnections[portID] {
                 for preset in Preset.presets {
-                    
                     if preset.connection == connection {
+                        if !preset.isEnabled {continue}
                         
                         for macro in preset.macros {
                             guard let macro = macro as? Macro else {fatalError("Couldn't cast to Macro")}
@@ -71,6 +71,7 @@ class MIDIReceiver : MIDIListener {
             
             if let connection = Connection.activeConnections[portID] {
                 for preset in Preset.presets {
+                    if !preset.isEnabled {continue}
                     
                     if preset.connection == connection {
                         
@@ -106,6 +107,7 @@ class MIDIReceiver : MIDIListener {
             
             if let connection = Connection.activeConnections[portID] {
                 for preset in Preset.presets {
+                    if !preset.isEnabled {continue}
                     
                     if preset.connection == connection {
                         

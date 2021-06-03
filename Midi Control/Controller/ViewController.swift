@@ -54,31 +54,52 @@ class ViewController: NSViewController {
         
 
         Connection.refreshConnections(context: context, shouldFetch: true)
+        
         fetchPresets()
-        //for preset in Preset.presets {preset.connection = nil}
+        
+        for preset in Preset.presets {print("\nPreset connection: \(preset.connection)\n")}
         
         presetViews = []
         for preset in Preset.presets {
             addPresetView(preset)
         }
-        
         updatePresetViews()
-
-        for pv in presetViews {pv.preset.connection = nil}
 
         manageDeviceButton.action = #selector(openDeviceWindow)
         
-        let connectionChecker = Thread {
+        //MARK: Background connection checker thread
+        Thread {
             while (true) {
                 DispatchQueue.main.async {
                     Connection.refreshConnections(context: self.context, shouldFetch: false)
-                    
                     self.deviceManager?.deviceTable?.reloadData()
                 }
+                
+                for pv in self.presetViews {
+                    if let connection = pv.preset.connection {
+                        if !Connection.connectionWhitelist().contains(connection) {
+                             
+                            DispatchQueue.main.async {
+                                pv.preset.connection = nil
+                                pv.statusLabel.stringValue = "Disconnected"
+                                pv.presetConnection.stringValue = "No Connection"
+                            }
+                            
+                        } else {
+                            
+                            DispatchQueue.main.async {
+                                pv.statusLabel.stringValue = connection.connected ? "Connected" : "Disconnected"
+                            }
+                            
+                        }
+                        DispatchQueue.main.async {try! self.context.save()}
+                    }
+                }
+                
                 sleep(1)
             }
-        }
-        connectionChecker.start()
+        }.start()
+        
     }
     
     private func newPreset() {
@@ -90,11 +111,7 @@ class ViewController: NSViewController {
         newPreset.macros = []
         
         // Save the new preset
-        do {
-            try self.context.save()
-            print("\nSaved preset\n")
-        }
-        catch {print("\n\(error)\n")}
+        try! self.context.save()
         
         addPresetView(newPreset)
     }
@@ -104,13 +121,9 @@ class ViewController: NSViewController {
         presetViews.append(newView)
     }
     
+    // Fetch data from core data
     public func fetchPresets() {
-        // Fetch data from core data
-        do {
-            Preset.presets = try context.fetch(Preset.fetchRequest())
-        } catch {
-            fatalError("Couldn't fetch presets")
-        }
+        Preset.presets = try! context.fetch(Preset.fetchRequest())
     }
     
     public func updatePresetViews() {
@@ -126,11 +139,7 @@ class ViewController: NSViewController {
             }
         }
         
-        do {
-            try context.save()
-            print("Saved data")
-        } catch {fatalError("Couldn't save")}
-
+        try! context.save()
     }
     
     @objc func openDeviceWindow() {

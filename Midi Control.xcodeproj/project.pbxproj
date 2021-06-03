@@ -44,6 +44,7 @@
 		904C1B9F2651134E00C28B01 /* MIDIReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */; };
 		907C16902657E41D0001D189 /* Connection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */; };
 		907C16912657E41D0001D189 /* Connection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */; };
+		90956E39266930D300EDF947 /* KeyboardKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90956E38266930D200EDF947 /* KeyboardKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		904C1B9E2651134E00C28B01 /* MIDIReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIReceiver.swift; sourceTree = "<group>"; };
 		907C168E2657E41D0001D189 /* Connection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataClass.swift"; sourceTree = "<group>"; };
 		907C168F2657E41D0001D189 /* Connection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Connection+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		90956E38266930D200EDF947 /* KeyboardKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				67C65D1F2652C8B4006D68DE /* KeyboardShortcut+CoreDataClass.swift */,
+				90956E38266930D200EDF947 /* KeyboardKeys.swift */,
 				9004C3722662748700B27B79 /* Midi Control-Bridging-Header.h */,
 				67C65D202652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift */,
 				67257D5725FD8192009425A0 /* KeyboardShortcut+Functionality.swift */,
@@ -394,6 +397,7 @@
 				67257D5125FD7A5D009425A0 /* Macro+Functionality.swift in Sources */,
 				67C65D252652C8B4006D68DE /* Preset+CoreDataClass.swift in Sources */,
 				67F27A7725FABF0A00FD78EC /* Preset+Functionality.swift in Sources */,
+				90956E39266930D300EDF947 /* KeyboardKeys.swift in Sources */,
 				67C65D272652C8B4006D68DE /* Macro+CoreDataClass.swift in Sources */,
 				67C65D2A2652C8B4006D68DE /* KeyboardShortcut+CoreDataProperties.swift in Sources */,
 				67C0446D25FC224800BA0B24 /* PresetViewDelegate.swift in Sources */,

@@ -34,26 +34,23 @@ extension KeyboardShortcut {
         let keyd = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(key), keyDown: true)
         let keyu = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(key), keyDown: false)
 
-        keyd?.flags = .maskControl
-        keyu?.flags = .maskControl
-
+        print(key == kVK_ANSI_4)
+        
+        var flags: [CGEventFlags] = []
+        if shift {flags.append(CGEventFlags.maskShift)}
+        if fn {flags.append(CGEventFlags.maskSecondaryFn)}
+        if ctrl {flags.append(CGEventFlags.maskControl)}
+        if option {flags.append(CGEventFlags.maskAlternate)}
+        if cmd {flags.append(CGEventFlags.maskCommand)}
+        
+        keyu?.flags = CGEventFlags(flags)
+        keyd?.flags = CGEventFlags(flags)
+        
+        
         let loc = CGEventTapLocation.cghidEventTap
-
-        if shift {shiftd?.post(tap: loc)}
-        if fn {fnd?.post(tap: loc)}
-        if ctrl {ctrld?.post(tap: loc)}
-        if option {optiond?.post(tap: loc)}
-        if cmd {cmdd?.post(tap: loc)}
         
         keyd?.post(tap: loc)
         keyu?.post(tap: loc)
-        
-        if shift {shiftu?.post(tap: loc)}
-        if fn {fnu?.post(tap: loc)}
-        if ctrl {ctrlu?.post(tap: loc)}
-        if option {optionu?.post(tap: loc)}
-        if cmd {cmdu?.post(tap: loc)}
-        
     }
     
 }

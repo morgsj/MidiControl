@@ -69,7 +69,6 @@ class PresetEditorView : NSView {
                 /* Set combo box value */
                 if let conn = preset.connection {
                     let index: Int? = Connection.connectionWhitelist().firstIndex(where: {$0 == conn})
-                    
                     if index != nil {
                         connectionField.stringValue = conn.name!
                     } else {
@@ -85,7 +84,6 @@ class PresetEditorView : NSView {
                 
                 /* Display all the preset's macros */
                 macroTableView.reloadData()
-                
             }
         }
     }; private var p : Preset?
@@ -128,6 +126,7 @@ class PresetEditorView : NSView {
             let newMacro = Macro(context: parent.context)
             newMacro.name = "New Macro"
             newMacro.id = UUID()
+            newMacro.enabled = true
             
             preset.addToMacros(newMacro)
             
@@ -350,7 +349,6 @@ extension PresetEditorView : NSComboBoxDelegate, NSComboBoxDataSource {
         let connection = Connection.connectionWhitelist()[index]
         if let preset = preset {
             
-            print("\nConnection: \(connection)\n")
             preset.connection = connection
             try! parent.context.save()
             
